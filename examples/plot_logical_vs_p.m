@@ -2,7 +2,9 @@ thisdir = fileparts(mfilename('fullpath'));
 outdir  = fullfile(thisdir,'..','docs');
 if ~exist(outdir,'dir'), mkdir(outdir); end
 
-rng(1); addpath(genpath('src'));
+rng(1);
+thisdir = fileparts(mfilename('fullpath'));
+addpath(genpath(fullfile(thisdir,'..','src')));
 ps = linspace(0,0.4,21);
 N  = 5e3;    % increase for smoother curves
 [ps, fail0] = sweep_logical_error(ps, N, 0);

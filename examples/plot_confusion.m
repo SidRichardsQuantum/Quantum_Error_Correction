@@ -2,11 +2,16 @@ thisdir = fileparts(mfilename('fullpath'));
 outdir  = fullfile(thisdir,'..','docs');
 if ~exist(outdir,'dir'), mkdir(outdir); end
 
-rng(1); addpath(genpath('src'));
+rng(1);
+thisdir = fileparts(mfilename('fullpath'));
+addpath(genpath(fullfile(thisdir,'..','src')));
 p = 0.12; N = 3e4;
 C = confusion_bitflip(N, p, 0);
-figure; heatmap(C);
+figure; imagesc(C); axis image; colorbar;
+set(gca,'XTick',1:4,'XTickLabel',{'I','X1','X2','X3'});
+set(gca,'YTick',1:5,'YTickLabel',{'I','X1','X2','X3','multi'});
 xlabel('inferred'); ylabel('true');
-xticklabels({'I','X1','X2','X3'}); yticklabels({'I','X1','X2','X3'});
 title(sprintf('Confusion matrix at p=%.2f, N=%d', p, N));
-print(fullfile(outdir,'plot_confusion.png'),'-dpng')
+thisdir = fileparts(mfilename('fullpath')); outdir = fullfile(thisdir,'..','docs');
+if ~exist(outdir,'dir'), mkdir(outdir); end
+print(fullfile(outdir,'plot_confusion.png'),'-dpng');

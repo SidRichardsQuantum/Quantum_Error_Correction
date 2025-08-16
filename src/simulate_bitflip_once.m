@@ -1,20 +1,23 @@
 function out = simulate_bitflip_once(p, alpha_beta, logical_bit)
-% logical_bit in {0,1}; alpha_beta optional (default basis state)
+% logical_bit in {0,1}; alpha_beta optional (defaults to |0> or |1>)
+if nargin < 3 || isempty(logical_bit), logical_bit = 0; end
+
 if nargin < 2 || isempty(alpha_beta)
     if logical_bit==0
-    alpha_beta = [1;0];
-else
-    alpha_beta = [0;1];
+        alpha_beta = [1;0];
+    else
+        alpha_beta = [0;1];
+    end
 end
-end
+
 psi_enc = encode_bitflip(alpha_beta);
 
 % sample physical error, compute syndrome, correct, decode
-e_true = sample_error_pattern(p);
-psi_noisy = apply_error_pattern(psi_enc, e_true);
-s = syndrome_bitflip(psi_noisy);
+e_true   = sample_error_pattern(p);
+psi_noisy= apply_error_pattern(psi_enc, e_true);
+s        = syndrome_bitflip(psi_noisy);
 psi_corr = correct_bitflip(psi_noisy, s);
-bhat = decode_majority(psi_corr);
+bhat     = decode_majority(psi_corr);
 
 % inferred error label
 ehat = infer_from_syndrome_bitflip(s);

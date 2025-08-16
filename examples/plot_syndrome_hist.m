@@ -2,7 +2,9 @@ thisdir = fileparts(mfilename('fullpath'));
 outdir  = fullfile(thisdir,'..','docs');
 if ~exist(outdir,'dir'), mkdir(outdir); end
 
-rng(1); addpath(genpath('src'));
+rng(1);
+thisdir = fileparts(mfilename('fullpath'));
+addpath(genpath(fullfile(thisdir,'..','src')));
 p = 0.12; N = 2e4;
 counts = collect_syndromes(N, p, 0);
 figure; bar(counts);

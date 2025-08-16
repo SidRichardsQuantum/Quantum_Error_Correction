@@ -19,7 +19,7 @@ end
 end
 
 function k = s2idx(s)
-% s = [s12 s23], map 00->1, 10->2, 11->3, 01->4
+s = s(:).';                          % force 1×2
 map = [0 0; 1 0; 1 1; 0 1];
 [~,k] = ismember(s, map, 'rows');
 end
