@@ -4,7 +4,12 @@ if nargin < 1 || isempty(N), N = 1e5; end
 if nargin < 2 || isempty(p), p = 0.1; end
 if nargin < 3, logical_bit = 0; end
 
-alpha_beta = logical_bit==0 ? [1;0] : [0;1];
+if logical_bit==0
+    alpha_beta = [1;0];
+else
+    alpha_beta = [0;1];
+end
+
 counts = zeros(4,1);
 for n = 1:N
     o = simulate_bitflip_once(p, alpha_beta, logical_bit);

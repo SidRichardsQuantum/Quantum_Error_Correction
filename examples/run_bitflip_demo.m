@@ -1,3 +1,7 @@
+thisdir = fileparts(mfilename('fullpath'));
+outdir  = fullfile(thisdir,'..','docs');
+if ~exist(outdir,'dir'), mkdir(outdir); end
+
 % Simple experiment sweep over p
 alpha_beta = [1;0]; % logical |0>
 psi_enc = encode_bitflip(alpha_beta);

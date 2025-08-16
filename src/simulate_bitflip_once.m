@@ -1,7 +1,11 @@
 function out = simulate_bitflip_once(p, alpha_beta, logical_bit)
 % logical_bit in {0,1}; alpha_beta optional (default basis state)
 if nargin < 2 || isempty(alpha_beta)
-    alpha_beta = logical_bit==0 ? [1;0] : [0;1]; %#ok<*COLND>
+    if logical_bit==0
+    alpha_beta = [1;0];
+else
+    alpha_beta = [0;1];
+end
 end
 psi_enc = encode_bitflip(alpha_beta);
 
