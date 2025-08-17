@@ -1,5 +1,8 @@
+% Apply independent bit-flip channel to a 3-qubit state vector
+% Models noise by flipping each qubit with probability p
+% (Simple Kraus-like mixture)
+
 function psi_noisy = apply_bitflip_noise(psi,p)
-% independently flip each physical qubit with prob p
 [~,X,~,~] = pauli();
 psi_noisy = 0;
 for e0 = 0:1
@@ -15,5 +18,4 @@ for e0 = 0:1
     end
   end
 end
-% Note: this is a simple Kraus-like mixture on the state vector
 end
