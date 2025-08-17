@@ -1,3 +1,5 @@
+% Unit test for encoding/decoding correctness of 3-qubit bit-flip code.
+
 function tests = test_bitflip
 tests = functiontests(localfunctions);
 end
