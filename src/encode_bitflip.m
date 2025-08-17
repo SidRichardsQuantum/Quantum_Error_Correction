@@ -1,3 +1,5 @@
+% Encode |ψ> = α|0>+β|1> into 3-qubit repetition code.
+
 function psi_enc = encode_bitflip(alpha_beta)
 % alpha_beta: 2x1 vector alpha|0>+beta|1>
 [~,X,~,~] = pauli();

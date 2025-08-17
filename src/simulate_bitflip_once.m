@@ -1,3 +1,6 @@
+% End-to-end run: encode, apply noise, correct, decode.
+% Returns struct with fields decoded_bit, true_bit, success, syndrome, e_true, e_hat.
+
 function out = simulate_bitflip_once(p, alpha_beta, logical_bit)
 % logical_bit in {0,1}; alpha_beta optional (defaults to |0> or |1>)
 if nargin < 3 || isempty(logical_bit), logical_bit = 0; end

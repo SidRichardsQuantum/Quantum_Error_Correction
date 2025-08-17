@@ -1,3 +1,5 @@
+% Monte Carlo histogram of number of flips under bit-flip channel.
+
 function w = error_weight_counts(N, p)
 % counts of number of flips {0,1,2,3} under independent flips prob p
 if nargin < 1 || isempty(N), N = 1e5; end

@@ -1,3 +1,5 @@
+% Estimate logical failure probability vs physical error p.
+
 function [ps, fail] = sweep_logical_error(ps, N, logical_bit)
 % returns empirical logical failure prob for each p
 if nargin < 1 || isempty(ps), ps = linspace(0,0.4,21); end

@@ -1,3 +1,5 @@
+% Apply single-qubit correction operator based on syndrome bits.
+
 function psi_corr = correct_bitflip(psi,s)
 [~,X,~,~] = pauli();
 X1 = kronN(X,eye(2),eye(2));

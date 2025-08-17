@@ -1,3 +1,5 @@
+% Build confusion matrix between true errors and inferred errors.
+
 function C = confusion_bitflip(N, p, logical_bit)
 % rows: true {I,X1,X2,X3,Multi}, cols: inferred {I,X1,X2,X3}
 if nargin < 1 || isempty(N), N = 1e5; end

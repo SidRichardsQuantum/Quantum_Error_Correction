@@ -1,3 +1,5 @@
+% Return standard single-qubit Pauli matrices I,X,Y,Z.
+
 function [I,X,Y,Z] = pauli()
 I = [1 0;0 1];
 X = [0 1;1 0];

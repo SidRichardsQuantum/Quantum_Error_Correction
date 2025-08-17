@@ -1,3 +1,5 @@
+% Simulate 3-qubit bit-flip code over range of p and plot fail rate.
+
 thisdir = fileparts(mfilename('fullpath'));
 outdir  = fullfile(thisdir,'..','docs');
 if ~exist(outdir,'dir'), mkdir(outdir); end

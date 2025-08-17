@@ -1,3 +1,5 @@
+% Decode logical bit by majority vote over 3 physical qubits.
+
 function bit = decode_majority(psi)
 % projectively read out each qubit in Z and take majority vote
 probs = zeros(8,1);

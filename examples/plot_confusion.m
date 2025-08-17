@@ -1,3 +1,6 @@
+% Plot confusion matrix (true vs inferred errors) as heatmap.
+% Saves PNG in docs/.
+
 thisdir = fileparts(mfilename('fullpath'));
 outdir  = fullfile(thisdir,'..','docs');
 if ~exist(outdir,'dir'), mkdir(outdir); end

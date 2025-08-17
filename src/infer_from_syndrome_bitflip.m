@@ -1,3 +1,5 @@
+% Map syndrome bits to most likely single-qubit error.
+
 function ehat = infer_from_syndrome_bitflip(s)
 % map syndrome [s12 s23] to most likely single-qubit flip
 % returns ehat in {I,X1,X2,X3} encoded as [e1 e2 e3]

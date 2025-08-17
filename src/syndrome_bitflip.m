@@ -1,3 +1,5 @@
+% Compute stabilizer measurement outcomes Z1Z2, Z2Z3.
+
 function s = syndrome_bitflip(psi)
 % measure Z1Z2 and Z2Z3 stabilizers; return [s12 s23] in {0,1}
 [~,~,~,Z] = pauli();

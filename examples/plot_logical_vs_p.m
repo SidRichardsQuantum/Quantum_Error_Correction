@@ -1,3 +1,6 @@
+% Plot logical failure probability vs bit-flip probability p.
+% Saves PNG in docs/.
+
 thisdir = fileparts(mfilename('fullpath'));
 outdir  = fullfile(thisdir,'..','docs');
 if ~exist(outdir,'dir'), mkdir(outdir); end
