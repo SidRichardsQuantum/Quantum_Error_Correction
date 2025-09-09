@@ -6,7 +6,7 @@ This document explains the physics background for the code in this repository, s
 
 Quantum bits (qubits) are fragile: interaction with the environment (decoherence) or imperfect control operations cause errors.
 Unlike classical bits, qubits cannot be cloned, so redundancy must be introduced carefully.
-Quantum Error Correction (QEC) provides a way to detect and correct certain errors without directly measuring and destroying the encoded quantum information.
+QEC provides a way to detect and correct certain errors without directly measuring and destroying the encoded quantum information.
 
 ## 2. Bit-Flip Errors
 

@@ -8,7 +8,9 @@ This document records the output of the simulations and the meaning of each figu
 - Confirms quadratic suppression of errors: for small `p`, the logical error scales like `p²`.  
 - At large `p`, error correction fails (logical error approaches 0.5, the random-guess limit).
 
-![Logical error probability vs physical error probability](./plot_loglogical_vs_p.png)
+<p align="center">
+  <img src="plot_loglogical_vs_p.png" alt="Logical error probability vs physical error probability" width="600">
+</p>
 
 ## 2. Syndrome Frequency Histogram
 
@@ -16,7 +18,9 @@ This document records the output of the simulations and the meaning of each figu
 - Each peak corresponds to the most likely single-qubit error.  
 - Demonstrates that syndrome extraction reveals which qubit flipped without collapsing the logical state.
 
-![Syndrome histogram](./plot_syndrome_hist.png)
+<p align="center">
+  <img src="plot_syndrome_hist.png" alt="Syndrome histogram" width="600">
+</p>
 
 ## 3. Confusion Matrix
 
@@ -25,7 +29,9 @@ This document records the output of the simulations and the meaning of each figu
 - Diagonal dominance shows that correction is reliable for single flips.  
 - Off-diagonal entries correspond to ambiguous cases (two or more flips).
 
-![Confusion matrix](./plot_confusion.png)
+<p align="center">
+  <img src="plot_confusion.png" alt="Confusion matrix" width="600">
+</p>
 
 ## 4. Error-Weight Distribution
 
@@ -33,7 +39,9 @@ This document records the output of the simulations and the meaning of each figu
 - At small `p`, weight 0 and weight 1 dominate.  
 - At larger `p`, weight 2 and weight 3 contribute significantly, explaining the rise in logical error.
 
-![Error-weight distribution](./plot_error_weight.png)
+<p align="center">
+  <img src="plot_error_weight.png" alt="Error-weight distribution" width="600">
+</p>
 
 ## 5. Key Takeaways
 
