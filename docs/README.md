@@ -7,10 +7,11 @@ This repo is intended as a learning project: build the codebase step by step, si
 
 ```
 Quantum_Error_Correction/
-├── src/      # Core functions for encoding, noise, correction, etc.
-├── examples/ # Scripts that run simulations and produce plots
-├── tests/    # Unit tests
-└── docs/     # Generated figures and documentation
+├── docs/
+├── src/       # Core functions for encoding, noise, correction, etc.
+├── images/    # Generated pngs
+├── examples/  # Scripts that run simulations and produce plots
+└── tests/     # Unit tests
 ```
 
 ### Capabilities
