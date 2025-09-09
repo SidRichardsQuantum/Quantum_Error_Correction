@@ -1,8 +1,8 @@
 % Plot distribution of error weights (0–3 flips).
-% Saves PNG in docs/.
+% Saves PNG in images/.
 
 thisdir = fileparts(mfilename('fullpath'));
-outdir  = fullfile(thisdir,'..','docs');
+outdir  = fullfile(thisdir,'..','images');
 if ~exist(outdir,'dir'), mkdir(outdir);
 end
 

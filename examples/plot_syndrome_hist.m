@@ -1,13 +1,12 @@
 % Plot histogram of measured syndromes at fixed p.
-% Saves PNG in docs/.
+% Saves PNG in images/.
 
 thisdir = fileparts(mfilename('fullpath'));
-outdir  = fullfile(thisdir,'..','docs');
+outdir  = fullfile(thisdir,'..','images');
 if ~exist(outdir,'dir'), mkdir(outdir);
 end
 
 rng(1);
-thisdir = fileparts(mfilename('fullpath'));
 addpath(genpath(fullfile(thisdir,'..','src')));
 p = 0.12;
 N = 2e4;

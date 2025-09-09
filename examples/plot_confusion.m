@@ -1,8 +1,8 @@
 % Plot confusion matrix (true vs inferred errors) as heatmap.
-% Saves PNG in docs/.
+% Saves PNG in images/.
 
 thisdir = fileparts(mfilename('fullpath'));
-outdir  = fullfile(thisdir,'..','docs');
+outdir  = fullfile(thisdir,'..','images');
 if ~exist(outdir,'dir'), mkdir(outdir);
 end
 
@@ -22,8 +22,7 @@ set(gca,'YTick',1:5,'YTickLabel',{'I','X1','X2','X3','multi'});
 xlabel('inferred');
 ylabel('true');
 title(sprintf('Confusion matrix at p=%.2f, N=%d', p, N));
-thisdir = fileparts(mfilename('fullpath'));
-outdir = fullfile(thisdir,'..','docs');
+
 if ~exist(outdir,'dir'), mkdir(outdir);
 end
 print(fullfile(outdir,'plot_confusion.png'),'-dpng');

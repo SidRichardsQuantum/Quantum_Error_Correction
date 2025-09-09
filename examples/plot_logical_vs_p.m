@@ -1,13 +1,12 @@
 % Plot logical failure probability vs bit-flip probability p.
-% Saves PNG in docs/.
+% Saves PNG in images/.
 
 thisdir = fileparts(mfilename('fullpath'));
-outdir  = fullfile(thisdir,'..','docs');
+outdir  = fullfile(thisdir,'..','images');
 if ~exist(outdir,'dir'), mkdir(outdir);
 end
 
 rng(1);
-thisdir = fileparts(mfilename('fullpath'));
 addpath(genpath(fullfile(thisdir,'..','src')));
 ps = linspace(0,0.4,21);
 N  = 5e3;  % increase for smoother curves
