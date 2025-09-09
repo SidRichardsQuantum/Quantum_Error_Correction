@@ -1,4 +1,4 @@
-# Setup & running examples
+# Setup
 
 ## Prerequisites
 - GNU Octave (or MATLAB)
@@ -7,6 +7,12 @@
 
 ## Quick install (Ubuntu 24.04)
 ```bash
+# clone into /workspaces so examples' paths match
+cd /workspaces
+git clone <https://github.com/SidRichardsQuantum/Quantum_Error_Correction> Quantum_Error_Correction
+cd Quantum_Error_Correction
+
+# install system deps
 sudo apt update
 sudo apt install -y octave xvfb
 ```
