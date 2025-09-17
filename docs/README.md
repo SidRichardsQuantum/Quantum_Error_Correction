@@ -1,7 +1,7 @@
 # Quantum_Error_Correction
 
-MATLAB/Octave implementation of simple quantum error correction codes, starting from the 3-qubit repetition (bit-flip) code.
-This repo is intended as a learning project: build the codebase step by step, simulate noise and correction, and visualize results.
+MATLAB/Octave implementations of simple quantum error‑correction (QEC) codes and visualization scripts.
+This repo is a learning / demo project: encode, simulate noise, decode, and visualize.
 
 ## Structure
 
@@ -14,23 +14,43 @@ Quantum_Error_Correction/
 └── tests/     # Unit tests
 ```
 
-### Capabilities
+## Capabilities
 
-- Encode and decode the 3-qubit repetition (bit-flip) code.
-- Simulate independent bit-flip noise on each qubit.
-- Measure stabilizer syndromes and apply correction.
-- Run Monte Carlo sweeps to estimate logical error rate.
-- Generate visualizations:
-  - Logical error probability vs physical error probability.
-  - Syndrome frequency histograms.
-  - Confusion matrix of true vs inferred errors.
-  - Distribution of error weights (0,1,2,3 flips).
+- 3‑qubit repetition (bit‑flip) code simulations
+- Simple multi‑code experiments (repetition, Shor-style prototypes)
+- Monte‑Carlo sweeps and confusion matrices
+- Publication‑quality PNG outputs (saved to docs/)
 
 ## Requirements
 
 - [GNU Octave](https://www.gnu.org/software/octave/) (tested in GitHub Codespaces)  
   or MATLAB R2021b+ (if you have a MathWorks license).  
 - Standard linear algebra and plotting functionality only.
+
+## Quickstart (Codespace / dev container)
+
+Prerequisites
+- GNU Octave (or MATLAB R2021b+)
+- Xvfb (for headless plotting)
+- git
+
+Install (Ubuntu)
+```bash
+sudo apt update
+sudo apt install -y octave xvfb
+```
+
+Run an example (headless)
+```bash
+# from repo root
+xvfb-run octave --eval "addpath('examples'); try; plot_confusion; catch; disp(lasterr); exit(1); end; exit(0);"
+"$BROWSER" file:///workspaces/Quantum_Error_Correction/docs/plot_confusion.png
+```
+
+Run tests
+```bash
+octave --no-gui --eval "runtests('tests')"
+```
 
 ## Usage
 
