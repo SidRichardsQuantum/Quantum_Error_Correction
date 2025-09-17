@@ -1,97 +1,61 @@
 # Theory: Quantum Error Correction (QEC)
 
-This document explains the physics background for the code in this repository, so the implementation can be understood without external references.
+Important note about the implementation
+- This repository implements a classical Monte‑Carlo model of bit‑flip errors using binary vectors and parity checks.
+It does not simulate full quantum state vectors or density matrices — errors are modeled as Pauli‑X flips occurring independently with probability $p$.
+- The simulations focus on syndrome generation, simple decoders, and logical error statistics from repeated random trials.
 
-## 1. Why Error Correction?
+### 1. Why Error Correction?
 
 Quantum bits (qubits) are fragile: interaction with the environment (decoherence) or imperfect control operations cause errors.
-Unlike classical bits, qubits cannot be cloned, so redundancy must be introduced carefully.
-QEC provides a way to detect and correct certain errors without directly measuring and destroying the encoded quantum information.
+Because qubits cannot be cloned, redundancy and indirect (syndrome) measurements are used to detect and correct errors without destroying logical information.
 
-## 2. Bit-Flip Errors
+### 2. Bit‑Flip Errors
 
-The simplest error is a **bit flip**, analogous to flipping a classical 0 → 1 or 1 → 0. In operator form this is the Pauli-X operator:
+The simplest error is a bit flip (Pauli‑X).
+In this repo we model X errors as classical flips on binary arrays:
+- X |0⟩ → |1⟩
+- X |1⟩ → |0⟩
 
+Independent X errors with probability $p$ are applied to physical qubits in Monte‑Carlo trials.
+
+### 3. Three‑Qubit Repetition Code (classical picture)
+
+Encode:
 ```
-X |0⟩ = |1⟩,
-X |1⟩ = |0⟩
-```
-
-If qubits independently undergo bit flips with probability $p$, the logical information is quickly lost.
-
-## 3. Three-Qubit Repetition Code
-
-To protect against a single bit flip, we encode:
-
-```
-|0_L⟩ = |000⟩,
-|1_L⟩ = |111⟩
+|0_L⟩ = |000⟩,  |1_L⟩ = |111⟩
 ```
 
-So an arbitrary qubit $α|0⟩ + β|1⟩$ is mapped to:
+The code corrects a single physical bit flip; two or more flips can produce a logical error.
 
+### 4. Stabilizer / syndrome viewpoint (parity checks)
+
+Parity checks $(Z_1 Z_2, Z_2 Z_3)$ produce syndrome bits that identify likely single‑qubit flips.
+Syndrome patterns (signs or bit values) map to which physical qubit is most likely in error (conventions for sign/bit encoding vary and are implementation-dependent).
+Measuring these parity operators reveals only parity information, not the logical amplitude.
+
+### 5. Correction and Decoding
+
+- Observe syndrome → apply corrective Pauli‑X on the inferred qubit → decode (majority vote).
+- In this codebase decoding is implemented with simple majority-vote and block‑decoding heuristics (see src/).
+
+### 6. Logical Error Rate
+
+Let $p$ be the single‑qubit flip probability.
+- No error: $(1−p)^3$
+- Exactly one error (correctable): $3p(1−p)^2$
+- Two or three errors (uncorrectable): $3p^2(1−p) + p^3$
+
+So the logical failure rate for the 3‑qubit repetition code is:
 ```
-|ψ_L⟩ = α |000⟩ + β |111⟩
+P_fail = 3 p^2 (1 − p) + p^3
 ```
+For small $p$ this scales as $O(p^2)$, showing suppression compared to a single physical qubit.
 
-This code can correct one bit flip (on any of the three physical qubits), but fails if two or more flips occur.
+## References and further reading
 
-## 4. Stabilizer Formalism
-
-The code space is defined by two stabilizer generators:
-
-```
-Z_1 Z_2,
-Z_2 Z_3
-```
-
-- Measuring these operators yields **syndrome bits** that identify which qubit flipped.  
-- For example:  
-  - Syndrome (1,0) → flip on qubit 1  
-  - Syndrome (1,1) → flip on qubit 2  
-  - Syndrome (0,1) → flip on qubit 3  
-
-These measurements do not collapse the logical state, only reveal parity information.
-
-## 5. Correction and Decoding
-
-- Once a syndrome is observed, apply the corresponding Pauli-X operator to reverse the error.  
-- Finally, to recover the logical bit, perform a **majority vote** measurement on the three physical qubits.
-
-This procedure corrects all single-qubit flips.
-
-## 6. Logical Error Rate
-
-Let $p$ be the single-qubit flip probability.  
-- Probability of no error: $(1-p)^3$  
-- Probability of exactly one error (correctable): $3p(1-p)^2$  
-- Probability of two or three errors (uncorrectable): $3p^2(1-p) + p^3$
-
-So the logical failure rate is:
-
-```
-P_\text{fail} = 3p^2(1-p) + p^3
-```
-
-This shows how error correction suppresses errors for small $p$ (logical error scales as $p^2$ instead of $p$).
-
-## 7. Limitations and Extensions
-
-- The 3-qubit code only handles bit-flip errors.  
-- To correct phase flips, one can use an analogous **phase-flip code**.  
-- Combining both yields **Shor’s 9-qubit code**, which protects against arbitrary single-qubit errors.  
-- More advanced codes (Steane code, surface code) generalize this idea further.
-
-## 8. Connection to This Repo
-
-- `src/` implements encoding, syndrome measurement, correction, and decoding.  
-- `examples/` run Monte Carlo simulations of the error channel and generate plots:
-  - Logical error probability vs $p$  
-  - Syndrome histograms  
-  - Confusion matrices  
-  - Error-weight distributions  
-
-These simulations illustrate the mathematics above in a concrete way.
+- M. A. Nielsen and I. L. Chuang, "Quantum Computation and Quantum Information."
+- D. Gottesman, "An introduction to quantum error correction and fault‑tolerant quantum computation."
 
 ---
 
