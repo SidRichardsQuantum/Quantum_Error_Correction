@@ -9,7 +9,7 @@ This document records the output of the simulations and the meaning of each figu
 - At large `p`, error correction fails (logical error approaches 0.5, the random-guess limit).
 
 <p align="center">
-  <img src="plot_loglogical_vs_p.png" alt="Logical error probability vs physical error probability" width="600">
+  <img src="plot_logical_vs_p.png" alt="Logical error probability vs physical error probability" width="600">
 </p>
 
 ## 2. Syndrome Frequency Histogram
