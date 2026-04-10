@@ -20,4 +20,4 @@ xlabel('bit-flip probability p');
 ylabel('logical fail probability');
 legend('|0_L>','|1_L>','Location','northwest');
 title('3-qubit bit-flip code: logical error vs p');
-print(fullfile(outdir,'plot_loglogical_vs_p.png'),'-dpng')
+print(fullfile(outdir,'plot_logical_vs_p.png'),'-dpng')
