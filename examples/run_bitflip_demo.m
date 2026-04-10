@@ -4,6 +4,7 @@ thisdir = fileparts(mfilename('fullpath'));
 outdir  = fullfile(thisdir,'..','images');
 if ~exist(outdir,'dir'), mkdir(outdir);
 end
+addpath(genpath(fullfile(thisdir,'..','src')));
 
 % Simple experiment sweep over p
 alpha_beta = [1;0];  % logical |0>
@@ -22,3 +23,5 @@ figure;
 plot(ps, fail, 'o-');
 xlabel('bit-flip p');
 ylabel('fail prob');
+title('Single-shot demo: sampled logical failure vs p');
+print(fullfile(outdir,'run_bitflip_demo.png'),'-dpng');
