@@ -19,7 +19,7 @@ Quantum_Error_Correction/
 - 3‑qubit repetition (bit‑flip) code simulations
 - Simple multi‑code experiments (repetition, Shor-style prototypes)
 - Monte‑Carlo sweeps and confusion matrices
-- Publication‑quality PNG outputs (saved to docs/)
+- Publication‑quality PNG outputs (saved to images/)
 
 ## Requirements
 
@@ -44,7 +44,7 @@ Run an example (headless)
 ```bash
 # from repo root
 xvfb-run octave --eval "addpath('examples'); try; plot_confusion; catch; disp(lasterr); exit(1); end; exit(0);"
-"$BROWSER" file:///workspaces/Quantum_Error_Correction/docs/plot_confusion.png
+"$BROWSER" file:///workspaces/Quantum_Error_Correction/images/plot_confusion.png
 ```
 
 Run tests
@@ -60,12 +60,12 @@ From the repo root in a terminal:
 octave --no-gui examples/plot_logical_vs_p.m
 ```
 
-Each script saves its figure in docs/ as a .png.
+Each script saves its figure in images/ as a .png.
 For example, running all four example scripts produces:
-- docs/plot_logical_vs_p.png
-- docs/plot_syndrome_hist.png
-- docs/plot_confusion.png
-- docs/plot_error_weight.png
+- images/plot_logical_vs_p.png
+- images/plot_syndrome_hist.png
+- images/plot_confusion.png
+- images/plot_error_weight.png
 
 ## Tests
 
