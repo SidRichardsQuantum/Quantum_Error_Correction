@@ -1,13 +1,36 @@
 % Unit test for encoding/decoding correctness of 3-qubit bit-flip code.
 
 function tests = test_bitflip
+thisdir = fileparts(mfilename('fullpath'));
+addpath(genpath(fullfile(thisdir,'..','src')));
 tests = functiontests(localfunctions);
 end
 
 function testEncodeDecodeNoNoise(~)
-psi = encode_bitflip([0.6; 0.8]);  % unnormalized OK here
+psi = encode_bitflip([1; 0]);
 s = syndrome_bitflip(psi);
 psi2 = correct_bitflip(psi,s);
 b = decode_majority(psi2);
-assert(ismember(b,[0 1]));
+assert(b == 0);
+end
+
+function testEncodeDecodeNoNoiseLogicalOne(~)
+psi = encode_bitflip([0; 1]);
+s = syndrome_bitflip(psi);
+psi2 = correct_bitflip(psi,s);
+b = decode_majority(psi2);
+assert(b == 1);
+end
+
+function testSingleQubitErrorIsCorrected(~)
+psi = encode_bitflip([1; 0]);
+
+% Flip qubit 2, then correct from syndrome.
+psi_noisy = apply_error_pattern(psi, [0 1 0]);
+s = syndrome_bitflip(psi_noisy);
+psi2 = correct_bitflip(psi_noisy, s);
+b = decode_majority(psi2);
+
+assert(isequal(s, [1 1]));
+assert(b == 0);
 end
