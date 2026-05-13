@@ -9,7 +9,7 @@ end
 rng(1);
 addpath(genpath(fullfile(thisdir,'..','src')));
 ps = linspace(0,0.4,21);
-N  = 5e3;  % increase for smoother curves
+N  = 500;  % increase for smoother curves
 [ps, fail0] = sweep_logical_error(ps, N, 0);
 [~,  fail1] = sweep_logical_error(ps, N, 1);
 
@@ -19,5 +19,5 @@ grid on;
 xlabel('bit-flip probability p');
 ylabel('logical fail probability');
 legend('|0_L>','|1_L>','Location','northwest');
-title('3-qubit bit-flip code: logical error vs p');
-print(fullfile(outdir,'plot_logical_vs_p.png'),'-dpng')
+title('3-qubit bit-flip logical error vs physical error');
+print(fullfile(outdir,'bitflip_logical_error_vs_physical_error.png'),'-dpng')

@@ -2,7 +2,7 @@
 % Returns counts for each of the 4 stabilizer outcomes.
 
 function counts = collect_syndromes(N, p, logical_bit)
-% counts over syndromes 00,10,11,01 (binary order by s=[s12 s23])
+% counts over syndromes |00>, |01>, |10>, |11> with s=[s12 s23]
 if nargin < 1 || isempty(N), N = 1e5;
 end
 if nargin < 2 || isempty(p), p = 0.1;
@@ -26,6 +26,6 @@ end
 
 function k = s2idx(s)
 s = s(:).';  % force 1×2
-map = [0 0; 1 0; 1 1; 0 1];
+map = [0 0; 0 1; 1 0; 1 1];
 [~,k] = ismember(s, map, 'rows');
 end

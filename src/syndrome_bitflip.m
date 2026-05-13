@@ -1,14 +1,12 @@
-% Compute stabilizer measurement outcomes Z1Z2, Z2Z3.
+% Projectively measure stabilizers Z1Z2, Z2Z3.
 
-function s = syndrome_bitflip(psi)
-% measure Z1Z2 and Z2Z3 stabilizers; return [s12 s23] in {0,1}
+function [s, psi_post] = syndrome_bitflip(psi)
+% return [s12 s23] in {0,1}; optional second output is post-measurement state
 [~,~,~,Z] = pauli();
 Z1Z2 = kronN(Z,Z,eye(2));
 Z2Z3 = kronN(eye(2),Z,Z);
-s = [measure_pm(psi,Z1Z2), measure_pm(psi,Z2Z3)];
-end
 
-function b = measure_pm(psi,Obs)
-v = real(psi'*(Obs*psi));  % expectation in {-1,1}
-b = (1 - sign(v))/2;       % map +1->0, -1->1
+[s12, psi_post] = measure_observable(psi, Z1Z2);
+[s23, psi_post] = measure_observable(psi_post, Z2Z3);
+s = [s12 s23];
 end

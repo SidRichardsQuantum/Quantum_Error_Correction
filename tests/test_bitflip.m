@@ -34,3 +34,13 @@ b = decode_majority(psi2);
 assert(isequal(s, [1 1]));
 assert(b == 0);
 end
+
+function testArbitraryLogicalStateIsRecovered(~)
+alpha_beta = normalize_state([1; 1i]);
+psi = encode_bitflip(alpha_beta);
+psi_noisy = apply_error_pattern(psi, [1 0 0]);
+[psi2, s] = recover_bitflip(psi_noisy);
+
+assert(isequal(s, [1 0]));
+assert(state_fidelity(psi, psi2) > 1 - 1e-10);
+end
