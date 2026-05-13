@@ -1,71 +1,176 @@
-# Results: Quantum Error Correction (3-Qubit Repetition Code)
+# Results
 
-This document records the output of the simulations and the meaning of each figure.
+This document summarizes the generated outputs in `images/` and the behavior each script is intended to show. The exact recovery checks live in `tests/` and can be run with:
 
-## 1. Logical Error Probability vs Physical Error Probability
+```bash
+octave --no-gui tests/run_all_tests.m
+```
 
-- Shows how the logical failure rate depends on the physical bit-flip probability `p`.  
-- Confirms quadratic suppression of errors: for small `p`, the logical error scales like `p²`.  
-- At large `p`, error correction fails (logical error approaches 0.5, the random-guess limit).
+The compact generated table in `docs/SIMULATION_REPORT.md` can be refreshed with:
+
+```bash
+octave --no-gui examples/generate_simulation_report.m
+```
+
+All figures can be regenerated with:
+
+```bash
+octave --no-gui examples/run_all_plots.m
+```
+
+## Exact Recovery Coverage
+
+The test suite checks that the implemented distance-3 codes recover arbitrary logical states after correctable single-qubit errors:
+
+| Code | Error model checked | Expected behavior |
+| --- | --- | --- |
+| 3-qubit bit-flip repetition | Single `X` errors | Recovers the encoded logical state |
+| 3-qubit phase-flip repetition | Single `Z` errors | Recovers the encoded logical state |
+| 5-qubit perfect code | Single-qubit `X`, `Y`, or `Z` errors | Recovers the encoded logical state |
+| 7-qubit Steane code | Single-qubit `X`, `Y`, or `Z` errors | Recovers the encoded logical state |
+| 9-qubit Shor code | Single-qubit `X`, `Y`, or `Z` errors | Recovers the encoded logical state |
+| Surface-3 prototype | Single `X`, `Z`, or `Y` errors on 9 data qubits | Returns to the zero-syndrome class without a logical residual |
+
+## Bit-Flip Repetition Code
+
+The 3-qubit repetition examples are the smallest end-to-end demonstrations of syndrome extraction, correction, and Monte Carlo logical-error estimation.
+
+### Logical Error Probability
+
+`images/bitflip_logical_error_vs_physical_error.png`
 
 <p align="center">
   <img src="../images/bitflip_logical_error_vs_physical_error.png" alt="Bit-flip logical error probability vs physical error probability" width="600">
 </p>
 
-## 2. Syndrome Frequency Histogram
+This sweep shows quadratic suppression at small physical error probability. The analytic logical failure probability for independent bit flips is:
 
-- Histogram of stabilizer measurement outcomes (`|00>`, `|01>`, `|10>`, `|11>`) in order.  
-- Each peak corresponds to the most likely single-qubit error.  
-- Demonstrates that syndrome extraction reveals which qubit flipped without collapsing the logical state.
+```text
+P_fail = 3p^2(1-p) + p^3
+```
+
+### Syndrome Histogram
+
+`images/bitflip_syndrome_distribution.png`
 
 <p align="center">
   <img src="../images/bitflip_syndrome_distribution.png" alt="Bit-flip syndrome distribution" width="600">
 </p>
 
-## 3. Confusion Matrix
+The histogram shows how syndrome outcomes identify the most likely single-qubit flip without measuring the logical value directly.
 
-- Rows: true error pattern (`I, X1, X2, X3`).  
-- Columns: inferred error pattern from syndrome.  
-- Diagonal dominance shows that correction is reliable for single flips.  
-- Off-diagonal entries correspond to ambiguous cases (two or more flips).
+### Decoder Confusion Matrix
+
+`images/bitflip_decoder_confusion_matrix.png`
 
 <p align="center">
   <img src="../images/bitflip_decoder_confusion_matrix.png" alt="Bit-flip syndrome decoder confusion matrix" width="600">
 </p>
 
-## 4. Error-Weight Distribution
+Rows are true error patterns and columns are inferred corrections. Diagonal entries represent correct single-error identification; off-diagonal entries come from ambiguous multi-error patterns.
 
-- Probability distribution over 0, 1, 2, or 3 flips.  
-- At small `p`, weight 0 and weight 1 dominate.  
-- At larger `p`, weight 2 and weight 3 contribute significantly, explaining the rise in logical error.
+### Error-Weight Distribution
+
+`images/bitflip_error_weight_distribution.png`
 
 <p align="center">
   <img src="../images/bitflip_error_weight_distribution.png" alt="Bit-flip error-weight distribution" width="600">
 </p>
 
-## 5. Key Takeaways
+This plot explains why the repetition code works well at small `p`: weight-0 and weight-1 events dominate. Weight-2 and weight-3 events become the logical-failure contribution as `p` grows.
 
-- The 3-qubit code effectively reduces error rate from `O(p)` to `O(p²)` at small `p`.  
-- Logical protection breaks down when `p` exceeds ~0.1–0.2.  
-- Simulation results match the analytic expression:
+### Monte Carlo Demo
 
-```
-P_\text{fail} = 3p²(1-p) + p³
-```
+`images/bitflip_monte_carlo_demo.png`
 
-## 6. Additional Simulation Outputs
+<p align="center">
+  <img src="../images/bitflip_monte_carlo_demo.png" alt="Bit-flip Monte Carlo demo" width="600">
+</p>
 
-The repository also includes scripts that generate:
+This example provides a compact visual run of the bit-flip simulation workflow.
 
-- `images/qec_recovery_failure_by_error_weight.png`: exact low-weight Pauli recovery comparison across codes.
-- `images/qec_depolarizing_logical_error_comparison.png`: logical failure under independent depolarizing noise.
-- `images/bitflip_noisy_syndrome_rounds.png`: impact of repeated noisy syndrome measurement rounds.
-- `images/surface3_logical_error_vs_x_error.png`: logical failure for the compact surface-code prototype.
+## Multi-Code Recovery Comparison
+
+`images/qec_recovery_failure_by_error_weight.png`
+
+<p align="center">
+  <img src="../images/qec_recovery_failure_by_error_weight.png" alt="Recovery failure by error weight across QEC codes" width="600">
+</p>
+
+This figure compares exact Pauli-recovery behavior by error weight across the implemented codes. The distance-3 codes are expected to handle all single-qubit Pauli errors and to fail on some higher-weight patterns.
+
+## Depolarizing Noise Sweep
+
+`images/qec_depolarizing_logical_error_comparison.png`
+
+<p align="center">
+  <img src="../images/qec_depolarizing_logical_error_comparison.png" alt="Depolarizing logical error comparison across QEC codes" width="600">
+</p>
+
+This Monte Carlo sweep applies independent depolarizing noise and estimates logical failure after recovery. It is a simple state-vector noise model, not a circuit-level threshold simulation.
+
+## Noisy Syndrome Rounds
+
+`images/bitflip_noisy_syndrome_rounds.png`
+
+<p align="center">
+  <img src="../images/bitflip_noisy_syndrome_rounds.png" alt="Bit-flip noisy syndrome rounds" width="600">
+</p>
+
+This plot models classical readout errors in the reported bit-flip syndrome. Repeating syndrome extraction and aggregating the result reduces readout-induced decoder mistakes.
+
+## Surface-3 Prototype
+
+`images/surface3_logical_error_vs_x_error.png`
+
+<p align="center">
+  <img src="../images/surface3_logical_error_vs_x_error.png" alt="Surface-3 prototype logical error vs X error probability" width="600">
+</p>
+
+The surface-code example is a compact 9-data-qubit code-capacity model using Z-check syndromes for X errors, X-check syndromes for Z errors, cached minimum-weight lookups, and repeated noisy syndrome readout. It is useful for studying syndrome lookup behavior, but it is not yet a full circuit-level surface-code simulator with ancilla schedules, hook errors, or data errors between measurement rounds.
+
+`images/surface3_channel_logical_error_comparison.png`
+
+<p align="center">
+  <img src="../images/surface3_channel_logical_error_comparison.png" alt="Surface-3 logical error comparison by error channel" width="600">
+</p>
+
+This comparison shows X-only, Z-only, and independent Pauli X/Y/Z logical failure estimates for the same compact surface-3 layout.
+
+`images/surface3_noisy_syndrome_rounds.png`
+
+<p align="center">
+  <img src="../images/surface3_noisy_syndrome_rounds.png" alt="Surface-3 noisy syndrome rounds" width="600">
+</p>
+
+This plot models classical readout errors on surface-3 syndrome bits. Each syndrome bit is measured repeatedly and majority-voted before decoding.
+
+## Generated Report
+
+`docs/SIMULATION_REPORT.md` contains a small, reproducible Markdown table generated by `examples/generate_simulation_report.m`. It uses intentionally low sample counts so it can run quickly in CI.
+
+## Key Takeaways
+
+- The repetition-code examples demonstrate the basic QEC loop: encode, apply noise, measure syndrome, correct, and estimate logical failure.
+- The 5-qubit, Steane, and Shor implementations verify exact recovery for every single-qubit Pauli error.
+- The depolarizing and noisy-syndrome examples are lightweight educational simulations, not hardware-calibrated noise models.
+- The surface-3 code now supports X-only, Z-only, combined Pauli code-capacity simulations, and repeated noisy syndrome readout.
 
 ---
 
-📘 Author: Sid Richards (SidRichardsQuantum)
+## Citation
 
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" width="20" /> LinkedIn: https://www.linkedin.com/in/sid-richards-21374b30b/
+If you use this repository in a project, cite it as:
 
-This project is licensed under the MIT License - see [../LICENSE](../LICENSE).
+Sid Richards (2026). `Quantum_Error_Correction`: MATLAB/Octave implementations of quantum error-correction codes and simulations.
+
+## Author
+
+Sid Richards
+
+- LinkedIn: [sid-richards-21374b30b](https://www.linkedin.com/in/sid-richards-21374b30b/)
+- GitHub: [SidRichardsQuantum](https://github.com/SidRichardsQuantum)
+
+## License
+
+MIT. See [LICENSE](LICENSE).

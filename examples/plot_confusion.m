@@ -9,11 +9,12 @@ end
 rng(1);
 thisdir = fileparts(mfilename('fullpath'));
 addpath(genpath(fullfile(thisdir,'..','src')));
+warning('off','all');
 p = 0.12;
 N = 2000;
 C = confusion_bitflip(N, p, 0);
 
-figure;
+figure('visible','off');
 imagesc(C);
 axis image;
 colorbar;

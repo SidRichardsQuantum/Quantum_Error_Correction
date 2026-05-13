@@ -1,4 +1,6 @@
 *.asv
 *.m~
+octave-workspace
+cache/
 .DS_Store
 *.mlx

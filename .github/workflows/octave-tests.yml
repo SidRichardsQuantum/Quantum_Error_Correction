@@ -19,3 +19,27 @@ jobs:
 
       - name: Run QEC test suite
         run: octave --no-gui tests/run_all_tests.m
+
+  generated-outputs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install GNU Octave
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y octave
+
+      - name: Generate simulation report
+        run: octave --no-gui examples/generate_simulation_report.m
+
+      - name: Run text examples
+        run: octave --no-gui examples/run_text_examples.m
+
+      - name: Smoke-test figure generation
+        run: octave --no-gui examples/plot_confusion.m
+
+      - name: Check generated images
+        run: octave --no-gui examples/check_generated_images.m

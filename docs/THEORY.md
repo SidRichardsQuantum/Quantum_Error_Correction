@@ -48,12 +48,24 @@ Measuring these parity operators reveals only parity information, not the logica
 - 5-qubit perfect code: smallest distance-3 stabilizer code, using four generators and a syndrome lookup table.
 - 7-qubit Steane code: CSS code using Hamming-code parity checks; X and Z syndromes identify the affected qubit.
 - 1D repetition decoder: chooses the minimum-weight error chain compatible with a measured parity syndrome.
-- Small surface-code prototype: a 3x3 rotated-layout X-error model using Z-check syndromes and a cached minimum-weight matching-style lookup.
+- Small surface-code prototype: a 3x3 rotated-layout code-capacity model using Z-check syndromes for X errors, X-check syndromes for Z errors, and cached minimum-weight matching-style lookups.
 
 ### 7. Noisy Syndrome Measurements
 
-The bit-flip noisy-syndrome example repeats syndrome extraction and majority-votes each syndrome bit.
+The bit-flip and surface-3 noisy-syndrome examples repeat syndrome extraction and majority-vote each syndrome bit.
 This models classical measurement readout errors on the reported syndrome bits, not a full ancilla-based circuit with hook errors or data errors between rounds.
+
+### Surface-3 Prototype
+
+The surface-code prototype uses a 3x3 data-qubit layout:
+
+```text
+1 2 3
+4 5 6
+7 8 9
+```
+
+The compact model uses four Z-check plaquette supports, `[1 2 4 5]`, `[2 3 5 6]`, `[4 5 7 8]`, and `[5 6 8 9]`. It also uses four low-weight X-check supports that commute with those Z checks and give unique single-Z-error syndromes. These X-check supports are a prototype modeling choice rather than a full circuit layout. Rows and columns are treated as length-3 logical-chain representatives. The noisy-syndrome surface-3 helpers flip classical syndrome bits and majority-vote repeated rounds before decoding. See `docs/SURFACE3.md` for the layout, syndrome functions, logical checks, caching behavior, and current limits.
 
 ### 8. Logical Error Rate
 
@@ -75,8 +87,19 @@ For small $p$ this scales as $O(p^2)$, showing suppression compared to a single 
 
 ---
 
-📘 Author: Sid Richards (SidRichardsQuantum)
+## Citation
 
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" width="20" /> LinkedIn: https://www.linkedin.com/in/sid-richards-21374b30b/
+If you use this repository in a project, cite it as:
 
-This project is licensed under the MIT License - see [../LICENSE](../LICENSE).
+Sid Richards (2026). `Quantum_Error_Correction`: MATLAB/Octave implementations of quantum error-correction codes and simulations.
+
+## Author
+
+Sid Richards
+
+- LinkedIn: [sid-richards-21374b30b](https://www.linkedin.com/in/sid-richards-21374b30b/)
+- GitHub: [SidRichardsQuantum](https://github.com/SidRichardsQuantum)
+
+## License
+
+MIT. See [LICENSE](LICENSE).

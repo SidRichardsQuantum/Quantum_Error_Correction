@@ -14,7 +14,7 @@ This repository is educational and code-oriented: it uses pure state vectors, Pa
 | 7-qubit Steane code | 7 | CSS stabilizer syndrome and single-qubit Pauli recovery |
 | 9-qubit Shor code | 9 | Bit/phase syndrome and single-qubit Pauli recovery |
 | 1D repetition decoder | variable | Minimum-weight syndrome decoder |
-| Surface-3 prototype | 9 data qubits | X-error syndrome model with cached minimum-weight lookup |
+| Surface-3 prototype | 9 data qubits | X/Z/Pauli code-capacity model, noisy syndrome rounds, cached minimum-weight lookup |
 
 ## Quickstart
 
@@ -30,6 +30,33 @@ Run an example:
 octave --no-gui examples/plot_logical_vs_p.m
 ```
 
+Run a minimal recovery example:
+
+```bash
+octave --no-gui examples/minimal_bitflip_recovery.m
+```
+
+Run a longer surface-code walkthrough:
+
+```bash
+octave --no-gui examples/surface3_walkthrough.m
+```
+
+Run all text examples:
+
+```bash
+octave --no-gui examples/run_text_examples.m
+```
+
+Run the full local validation set:
+
+```bash
+octave --no-gui tests/run_all_tests.m
+octave --no-gui examples/run_text_examples.m
+octave --no-gui examples/generate_simulation_report.m
+octave --no-gui examples/check_generated_images.m
+```
+
 Generate the simulation summary:
 
 ```bash
@@ -41,6 +68,8 @@ Regenerate all figures:
 ```bash
 octave --no-gui examples/run_all_plots.m
 ```
+
+Surface-3 Monte Carlo sweeps cache reusable `.mat` results under `cache/`, which is ignored by git.
 
 ## Project Map
 
@@ -55,7 +84,7 @@ octave --no-gui examples/run_all_plots.m
 
 - The exact recovery tests verify arbitrary logical-state recovery up to global phase.
 - Depolarizing-noise examples sample independent X/Y/Z errors after an error event.
-- The surface-code model is intentionally compact; it is a prototype decoder, not a full circuit-level simulator.
+- The surface-code model is intentionally compact; it is a code-capacity prototype decoder, not a full circuit-level simulator. See [docs/SURFACE3.md](docs/SURFACE3.md).
 
 See [docs/USAGE.md](docs/USAGE.md) and [docs/THEORY.md](docs/THEORY.md) for more detail.
 
