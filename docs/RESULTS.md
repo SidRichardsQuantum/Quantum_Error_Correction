@@ -127,7 +127,7 @@ This plot models classical readout errors in the reported bit-flip syndrome. Rep
   <img src="../images/surface3_logical_error_vs_x_error.png" alt="Surface-3 prototype logical error vs X error probability" width="600">
 </p>
 
-The surface-code example is a compact 9-data-qubit code-capacity model using Z-check syndromes for X errors, X-check syndromes for Z errors, cached minimum-weight lookups, and repeated noisy syndrome readout. It is useful for studying syndrome lookup behavior, but it is not yet a full circuit-level surface-code simulator with ancilla schedules, hook errors, or data errors between measurement rounds.
+The surface-code example is a compact 9-data-qubit code-capacity model using Z-check syndromes for X errors, X-check syndromes for Z errors, cached minimum-weight lookups, and repeated noisy syndrome readout. It also includes a lightweight circuit-level schedule prototype with 8 ancillas, data errors between rounds, and hook-like gate faults for studying how measurement order can affect residual errors.
 
 `images/surface3_channel_logical_error_comparison.png`
 
@@ -154,7 +154,7 @@ This plot models classical readout errors on surface-3 syndrome bits. Each syndr
 - The repetition-code examples demonstrate the basic QEC loop: encode, apply noise, measure syndrome, correct, and estimate logical failure.
 - The 5-qubit, Steane, and Shor implementations verify exact recovery for every single-qubit Pauli error.
 - The depolarizing and noisy-syndrome examples are lightweight educational simulations, not hardware-calibrated noise models.
-- The surface-3 code now supports X-only, Z-only, combined Pauli code-capacity simulations, and repeated noisy syndrome readout.
+- The surface-3 code now supports X-only, Z-only, combined Pauli code-capacity simulations, repeated noisy syndrome readout, and a compact circuit-level schedule prototype.
 
 ---
 

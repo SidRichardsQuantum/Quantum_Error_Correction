@@ -63,3 +63,26 @@ for q = 1:9
     assert(isequal(s_hat_z, surface3_z_syndrome(e)));
     assert(~surface3_logical_failure(residual_z));
 end
+
+schedule = surface3_measurement_schedule();
+assert(isequal(schedule.data_qubits, 1:9));
+assert(isequal(schedule.z_ancillas, 10:13));
+assert(isequal(schedule.x_ancillas, 14:17));
+assert(numel(schedule.z_checks) == 4);
+assert(numel(schedule.x_checks) == 4);
+
+out = simulate_surface3_circuit_level_once(0, 0, 0, 3);
+assert(out.success);
+assert(isequal(out.x_error, zeros(1, 9)));
+assert(isequal(out.z_error, zeros(1, 9)));
+assert(isequal(out.x_syndrome_history, zeros(3, 4)));
+assert(isequal(out.z_syndrome_history, zeros(3, 4)));
+assert(numel(out.hook_events) == 0);
+
+rand('seed', 11);
+out = simulate_surface3_circuit_level_once(0, 0, 1, 1);
+assert(numel(out.hook_events) > 0);
+assert(numel(out.x_error) == 9);
+assert(numel(out.z_error) == 9);
+assert(size(out.x_syndrome_history, 1) == 1);
+assert(size(out.z_syndrome_history, 2) == 4);
