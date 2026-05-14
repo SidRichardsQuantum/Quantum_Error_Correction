@@ -49,7 +49,7 @@ Or use the package archive workflow:
 
 ```bash
 make package
-octave --no-gui --eval "pkg install dist/qec-0.2.0.tar.gz"
+octave --no-gui --eval "pkg install dist/qec-0.3.0.tar.gz"
 octave --no-gui --eval "pkg load qec; qec_about"
 ```
 

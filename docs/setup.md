@@ -31,7 +31,7 @@ make package
 Install and load it in Octave:
 
 ```bash
-octave --no-gui --eval "pkg install dist/qec-0.2.0.tar.gz"
+octave --no-gui --eval "pkg install dist/qec-0.3.0.tar.gz"
 octave --no-gui --eval "pkg load qec; qec_about"
 ```
 
@@ -47,7 +47,7 @@ make images    # smoke-test generated PNGs
 make validate  # test + examples + report + image checks
 make site      # rebuild _site/
 make check-links # rebuild _site/ and check internal links
-make package   # build dist/qec-0.2.0.tar.gz
+make package   # build dist/qec-0.3.0.tar.gz
 ```
 
 ## Notes

@@ -33,7 +33,7 @@ Build the package with:
 make package
 ```
 
-The generated archive is written to `dist/qec-0.2.0.tar.gz` and can be attached to a GitHub Release.
+The generated archive is written to `dist/qec-0.3.0.tar.gz` and can be attached to a GitHub Release.
 
 ## Why Not Move `src/` To `inst/`?
 

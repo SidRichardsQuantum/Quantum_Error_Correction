@@ -12,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
 NAME = "qec"
-VERSION = "0.2.0"
+VERSION = "0.3.0"
 
 
 def copy_file(src: Path, dst: Path) -> None:
