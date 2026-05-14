@@ -18,6 +18,21 @@ for d = [3 5]
     end
 end
 
+for kind_cell = {'z', 'x'}
+    kind = kind_cell{1};
+    d = 5;
+    pair_patterns = [1 2; 1 7; 3 19; 6 18; 11 25; 14 22];
+    for row = 1:size(pair_patterns, 1)
+        e = zeros(1, d * d);
+        e(pair_patterns(row, :)) = 1;
+        s = surface_syndrome(e, d, kind);
+        ehat = decode_surface_min_weight(s, d, kind);
+        residual = xor(e, ehat);
+        assert(isequal(surface_syndrome(residual, d, kind), zeros(1, (d - 1)^2)));
+        assert(~surface_logical_failure(residual, d));
+    end
+end
+
 out = simulate_surface_pauli_once(3, 0);
 assert(out.success);
 assert(isequal(out.error, repmat('I', 1, 9)));

@@ -27,6 +27,7 @@ Quantum_Error_Correction/
 - Independent depolarizing-noise simulations
 - Repeated noisy syndrome measurement simulations
 - Small distance-3 surface-code prototype with X/Z/Pauli code-capacity sweeps and a minimum-weight matching-style decoder
+- Generic odd-distance surface-layout decoder benchmarks for d=3/5/7
 - Monte‑Carlo sweeps and confusion matrices
 - Publication‑quality PNG outputs (saved to images/)
 
@@ -63,6 +64,12 @@ octave --no-gui examples/minimal_bitflip_recovery.m
 Run the longer surface-code walkthrough
 ```bash
 octave --no-gui examples/surface3_walkthrough.m
+```
+
+Run the generic surface-layout distance benchmark
+```bash
+octave --no-gui examples/benchmark_surface_distance_decoder.m
+octave --no-gui examples/plot_surface_distance_scaling.m
 ```
 
 Run all text examples
@@ -109,6 +116,8 @@ Short text examples:
 - `examples/minimal_shor_recovery.m`
 - `examples/minimal_bacon_shor_recovery.m`
 - `examples/minimal_repetition_decoder.m`
+- `examples/minimal_surface_distance_decoder.m`
+- `examples/benchmark_surface_distance_decoder.m`
 - `examples/minimal_surface3_syndrome.m`
 
 Longer walkthrough:
@@ -133,6 +142,7 @@ For example, running the plotting scripts produces:
 - images/surface3_logical_error_vs_x_error.png
 - images/surface3_channel_logical_error_comparison.png
 - images/surface3_noisy_syndrome_rounds.png
+- images/surface_distance_logical_error_scaling.png
 
 The generated report is written to docs/SIMULATION_REPORT.md.
 

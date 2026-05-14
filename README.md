@@ -24,7 +24,7 @@ This repository is educational and code-oriented: it uses pure state vectors, Pa
 | 3x3 Bacon-Shor subsystem code | 9 | Pauli-frame row/column syndrome decoder and logical residual check |
 | 1D repetition decoder | variable | Minimum-weight syndrome decoder |
 | Surface-3 prototype | 9 data qubits + 8 ancillas | X/Z/Pauli code-capacity model, noisy syndrome rounds, circuit-level schedule prototype, cached minimum-weight lookup |
-| Generic surface-layout decoder | odd d | Variable-distance square layout, plaquette syndromes, small-distance lookup, and larger-distance peeling decoder |
+| Generic surface-layout decoder | odd d | Variable-distance square layout, plaquette syndromes, cached small-pattern lookup, peeling fallback, and d=3/5/7 benchmark scripts |
 
 ## Quickstart
 
@@ -62,6 +62,13 @@ Run a variable-distance surface-layout decoder example:
 
 ```bash
 octave --no-gui examples/minimal_surface_distance_decoder.m
+```
+
+Run the surface-layout distance benchmark:
+
+```bash
+octave --no-gui examples/benchmark_surface_distance_decoder.m
+octave --no-gui examples/plot_surface_distance_scaling.m
 ```
 
 Run a longer surface-code walkthrough:
@@ -119,6 +126,8 @@ Surface-3 Monte Carlo sweeps cache reusable `.mat` results under `cache/`, which
 - `tools/build_pages_site.py`: GitHub Pages builder, including generated
   `api.html` source-reference output.
 - `docs/SIMULATION_REPORT.md`: Generated compact simulation table.
+- `docs/ROADMAP.md`: Near-term decoder, modeling, and release priorities.
+- `Makefile`: Shortcuts for tests, examples, reports, figures, site build, and validation.
 - `images/`: Generated PNG outputs.
 
 ## Notes

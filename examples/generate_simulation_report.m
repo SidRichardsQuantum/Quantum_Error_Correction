@@ -33,7 +33,8 @@ fprintf(fid, '| 5-qubit perfect | 5 | Distance 3 stabilizer code | Corrects ever
 fprintf(fid, '| Steane | 7 | Distance 3 CSS code | Corrects every single-qubit X/Y/Z error |\n');
 fprintf(fid, '| Shor | 9 | Distance 3 concatenated-style code | Corrects every single-qubit X/Y/Z error |\n');
 fprintf(fid, '| Bacon-Shor | 9 | Distance 3 subsystem Pauli-frame model | Corrects every single-qubit X/Y/Z error by logical residual parity |\n');
-fprintf(fid, '| Surface-3 prototype | 9 data qubits | X/Z/Pauli code-capacity model | Minimum-weight lookup corrects single X, Z, and Y errors |\n\n');
+fprintf(fid, '| Surface-3 prototype | 9 data qubits | X/Z/Pauli code-capacity model | Minimum-weight lookup corrects single X, Z, and Y errors |\n');
+fprintf(fid, '| Generic surface layout | odd d-by-d data grids | Code-capacity Pauli model | Exact d=3 lookup, bounded d=5 lookup, and peeling fallback for decoder comparisons |\n\n');
 
 fprintf(fid, '## Depolarizing Noise Snapshot\n\n');
 fprintf(fid, 'Independent per-qubit depolarizing noise; logical failure is estimated by state fidelity after recovery.\n\n');
@@ -99,6 +100,20 @@ for i = 1:numel(rounds_surface)
 end
 fprintf(fid, '\nSurface-3 noisy-syndrome cache hit: `%d`.\n', meta_surface_syn.cache_hit);
 
+fprintf(fid, '\n## Generic Surface-Layout Distance Benchmark\n\n');
+fprintf(fid, 'Variable-distance d-by-d surface-layout model under independent Pauli noise. The decoder uses cached minimum-weight lookup for small patterns and a peeling fallback for unresolved syndromes.\n\n');
+distances_surface = [3 5 7];
+ps_distance = [0 0.03 0.06 0.09];
+Ndistance = 8;
+distance_results = sweep_surface_distance_logical_error(distances_surface, ps_distance, Ndistance, 11);
+fprintf(fid, '| Error probability | Trials | d=3 failure | d=5 failure | d=7 failure |\n');
+fprintf(fid, '| ---: | ---: | ---: | ---: | ---: |\n');
+for i = 1:numel(ps_distance)
+    fprintf(fid, '| %.2f | %d | %.3f | %.3f | %.3f |\n', ...
+            ps_distance(i), Ndistance, distance_results.logical_error(1, i), ...
+            distance_results.logical_error(2, i), distance_results.logical_error(3, i));
+end
+
 fprintf(fid, '\n## Generated Figures\n\n');
 fprintf(fid, '- `images/bitflip_logical_error_vs_physical_error.png`\n');
 fprintf(fid, '- `images/bitflip_syndrome_distribution.png`\n');
@@ -111,6 +126,7 @@ fprintf(fid, '- `images/bitflip_noisy_syndrome_rounds.png`\n');
 fprintf(fid, '- `images/surface3_logical_error_vs_x_error.png`\n');
 fprintf(fid, '- `images/surface3_channel_logical_error_comparison.png`\n');
 fprintf(fid, '- `images/surface3_noisy_syndrome_rounds.png`\n');
+fprintf(fid, '- `images/surface_distance_logical_error_scaling.png`\n');
 
 clear cleanup;
 disp(['Wrote ', report_path]);

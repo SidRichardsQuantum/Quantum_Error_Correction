@@ -8,7 +8,7 @@ This report uses intentionally small sample counts so it can run quickly in CI o
 
 | Field | Value |
 | --- | --- |
-| Generated at | `20260514T010930` |
+| Generated at | `20260514T015423` |
 | Octave version | `8.4.0` |
 | RNG seed | `7` |
 | Surface-3 cache version | `surface3-v1` |
@@ -24,6 +24,7 @@ This report uses intentionally small sample counts so it can run quickly in CI o
 | Shor | 9 | Distance 3 concatenated-style code | Corrects every single-qubit X/Y/Z error |
 | Bacon-Shor | 9 | Distance 3 subsystem Pauli-frame model | Corrects every single-qubit X/Y/Z error by logical residual parity |
 | Surface-3 prototype | 9 data qubits | X/Z/Pauli code-capacity model | Minimum-weight lookup corrects single X, Z, and Y errors |
+| Generic surface layout | odd d-by-d data grids | Code-capacity Pauli model | Exact d=3 lookup, bounded d=5 lookup, and peeling fallback for decoder comparisons |
 
 ## Depolarizing Noise Snapshot
 
@@ -88,6 +89,17 @@ Classical readout noise on syndrome bits with majority vote across repeated roun
 
 Surface-3 noisy-syndrome cache hit: `1`.
 
+## Generic Surface-Layout Distance Benchmark
+
+Variable-distance d-by-d surface-layout model under independent Pauli noise. The decoder uses cached minimum-weight lookup for small patterns and a peeling fallback for unresolved syndromes.
+
+| Error probability | Trials | d=3 failure | d=5 failure | d=7 failure |
+| ---: | ---: | ---: | ---: | ---: |
+| 0.00 | 8 | 0.000 | 0.000 | 0.000 |
+| 0.03 | 8 | 0.000 | 0.000 | 0.125 |
+| 0.06 | 8 | 0.000 | 0.000 | 0.125 |
+| 0.09 | 8 | 0.375 | 0.125 | 0.250 |
+
 ## Generated Figures
 
 - `images/bitflip_logical_error_vs_physical_error.png`
@@ -101,3 +113,4 @@ Surface-3 noisy-syndrome cache hit: `1`.
 - `images/surface3_logical_error_vs_x_error.png`
 - `images/surface3_channel_logical_error_comparison.png`
 - `images/surface3_noisy_syndrome_rounds.png`
+- `images/surface_distance_logical_error_scaling.png`

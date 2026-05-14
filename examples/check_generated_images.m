@@ -7,7 +7,8 @@ addpath(genpath(fullfile(rootdir, 'src')));
 addpath(thisdir);
 
 expected = {fullfile(outdir, 'surface3_channel_logical_error_comparison.png'), ...
-            fullfile(outdir, 'surface3_noisy_syndrome_rounds.png')};
+            fullfile(outdir, 'surface3_noisy_syndrome_rounds.png'), ...
+            fullfile(outdir, 'surface_distance_logical_error_scaling.png')};
 for k = 1:numel(expected)
     if exist(expected{k}, 'file')
         delete(expected{k});
@@ -23,6 +24,11 @@ clear N seed;
 N = 50;
 seed = 6;
 plot_surface3_noisy_syndrome_rounds;
+close all;
+
+N = 3;
+seed = 11;
+plot_surface_distance_scaling;
 close all;
 
 for k = 1:numel(expected)

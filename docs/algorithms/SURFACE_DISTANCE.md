@@ -23,11 +23,12 @@ Distances must be odd integers at least 3.
 binary error vector. Use `kind = 'z'` for X-error decoding and `kind = 'x'` for
 Z-error decoding.
 
-`decode_surface_min_weight(s, d, kind)` uses two strategies:
+`decode_surface_min_weight(s, d, kind)` uses three strategies:
 
-- for `d <= 3`, exhaustive minimum-weight lookup,
+- for `d = 3`, cached exhaustive minimum-weight lookup,
+- for `d = 5`, cached bounded lookup through weight-2 data errors,
 - for larger odd distances, exact single-error lookup followed by
-  `decode_surface_union_find(...)`, a lightweight peeling heuristic.
+  `decode_surface_union_find(...)`, a vectorized peeling heuristic.
 
 The larger-distance branch is a compact teaching decoder, not a calibrated MWPM
 or threshold-quality union-find implementation.
@@ -42,6 +43,13 @@ compares logical-failure estimates across distances, for example:
 results = sweep_surface_distance_logical_error([3 5], [0.01 0.03 0.05], 100, 7);
 ```
 
+For a compact d=3/5/7 decoder comparison:
+
+```bash
+octave --no-gui examples/benchmark_surface_distance_decoder.m
+octave --no-gui examples/plot_surface_distance_scaling.m
+```
+
 ## Main Files
 
 - `src/surface_layout.m`
@@ -52,6 +60,8 @@ results = sweep_surface_distance_logical_error([3 5], [0.01 0.03 0.05], 100, 7);
 - `src/decode_surface_union_find.m`
 - `src/simulate_surface_pauli_once.m`
 - `src/sweep_surface_distance_logical_error.m`
+- `examples/benchmark_surface_distance_decoder.m`
+- `examples/plot_surface_distance_scaling.m`
 
 ## Example
 
@@ -66,5 +76,6 @@ octave --no-gui tests/run_all_tests.m
 ```
 
 `tests/test_surface_distance.m` checks the layout metadata, single-error
-syndrome correction for `d = 3` and `d = 5`, zero-noise simulation, and a small
-distance-comparison sweep.
+syndrome correction for `d = 3` and `d = 5`, representative two-error
+correction for `d = 5`, zero-noise simulation, and a small distance-comparison
+sweep.

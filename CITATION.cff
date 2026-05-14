@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this repository in a project, please cite it as below."
+title: "Quantum_Error_Correction: MATLAB/Octave implementations of quantum error-correction codes and simulations"
+authors:
+  - family-names: "Richards"
+    given-names: "Sid"
+year: 2026
+license: MIT
+repository-code: "https://github.com/SidRichardsQuantum/Quantum_Error_Correction"
+url: "https://sidrichardsquantum.github.io/Quantum_Error_Correction/"
