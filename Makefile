@@ -1,7 +1,7 @@
 OCTAVE ?= octave --no-gui
 PYTHON ?= python3
 
-.PHONY: test examples report images plots site validate
+.PHONY: test examples report images plots site check-links package validate
 
 test:
 	$(OCTAVE) tests/run_all_tests.m
@@ -20,5 +20,11 @@ plots:
 
 site:
 	$(PYTHON) tools/build_pages_site.py
+
+check-links: site
+	$(PYTHON) tools/check_site_links.py
+
+package:
+	$(PYTHON) tools/build_octave_package.py
 
 validate: test examples report images

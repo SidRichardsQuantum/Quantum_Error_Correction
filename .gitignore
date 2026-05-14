@@ -1,8 +1,10 @@
 *.asv
 *.m~
 octave-workspace
+doc-cache
 cache/
 _site/
+dist/
 __pycache__/
 *.pyc
 .DS_Store

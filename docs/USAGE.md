@@ -90,6 +90,18 @@ Run tests
 octave --no-gui tests/run_all_tests.m
 ```
 
+Load a cloned checkout into the Octave/MATLAB path
+```bash
+octave --no-gui --eval "qec_setup; qec_about"
+```
+
+Build and install the Octave package archive
+```bash
+make package
+octave --no-gui --eval "pkg install dist/qec-0.2.0.tar.gz"
+octave --no-gui --eval "pkg load qec; qec_about"
+```
+
 Generate a compact simulation report
 ```bash
 octave --no-gui examples/generate_simulation_report.m

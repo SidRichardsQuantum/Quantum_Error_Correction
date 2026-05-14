@@ -27,13 +27,18 @@ DOC_PAGES = [
     ("docs/SURFACE3.md", "Surface-3"),
     ("docs/SIMULATION_REPORT.md", "Simulation Report"),
     ("docs/setup.md", "Setup"),
+    ("docs/REPOSITORY_LAYOUT.md", "Repository Layout"),
+    ("docs/ROADMAP.md", "Roadmap"),
+    ("CONTRIBUTING.md", "Contributing"),
     ("docs/algorithms/BITFLIP.md", "Bit-Flip"),
     ("docs/algorithms/PHASEFLIP.md", "Phase-Flip"),
     ("docs/algorithms/FIVE_QUBIT.md", "5-Qubit"),
     ("docs/algorithms/STEANE.md", "Steane"),
     ("docs/algorithms/SHOR.md", "Shor"),
+    ("docs/algorithms/COLOR7.md", "Color-7"),
     ("docs/algorithms/BACON_SHOR.md", "Bacon-Shor"),
     ("docs/algorithms/REPETITION_DECODER.md", "Repetition Decoder"),
+    ("docs/algorithms/SURFACE_DISTANCE.md", "Surface Distance"),
 ]
 
 
@@ -49,6 +54,7 @@ FIGURES = [
     ("images/surface3_logical_error_vs_x_error.png", "Surface-3 logical error vs X error"),
     ("images/surface3_channel_logical_error_comparison.png", "Surface-3 channel comparison"),
     ("images/surface3_noisy_syndrome_rounds.png", "Surface-3 noisy syndrome rounds"),
+    ("images/surface_distance_logical_error_scaling.png", "Surface distance logical error scaling"),
 ]
 
 
@@ -114,7 +120,7 @@ def copy_tree(src: str) -> None:
 def copy_static_assets() -> None:
     for name in ["images", "src", "examples", "tests", "cache", "docs"]:
         copy_tree(name)
-    for name in ["README.md", "LICENSE"]:
+    for name in ["README.md", "LICENSE", "CITATION.cff", "CONTRIBUTING.md", "DESCRIPTION", "INDEX"]:
         source = ROOT / name
         if source.exists():
             shutil.copy2(source, SITE / name)
@@ -345,6 +351,16 @@ def render_shell(title: str, body: str, active: str = "docs", root_prefix: str =
     <meta name="theme-color" content="#0f5364">
     <title>{html.escape(title)} | Quantum Error Correction</title>
     <link rel="stylesheet" href="{root_prefix}assets/styles.css">
+    <script>
+      window.MathJax = {{
+        tex: {{
+          inlineMath: [['$', '$'], ['\\\\(', '\\\\)']],
+          displayMath: [['$$', '$$'], ['\\\\[', '\\\\]']]
+        }},
+        svg: {{ fontCache: 'global' }}
+      }};
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#top">Skip to main content</a>
@@ -440,16 +456,22 @@ def build_index() -> None:
         <rect class="visual-bg" width="520" height="360" rx="8" />
         <rect class="visual-grid" width="520" height="360" rx="8" fill="url(#qec-grid)" />
         <g class="visual-circuit">
-          <path d="M72 76h376M72 136h376M72 196h376M72 256h376" />
-          <path d="M148 76v120M246 136v120M344 76v180" />
-          <circle cx="148" cy="76" r="13" /><circle cx="148" cy="196" r="13" />
-          <circle cx="246" cy="136" r="13" /><circle cx="246" cy="256" r="13" />
-          <circle cx="344" cy="76" r="13" /><circle cx="344" cy="256" r="13" />
-          <rect x="388" y="116" width="52" height="40" rx="8" />
-          <path d="M102 58v36M84 76h36M102 178v36M84 196h36M408 238l36 36M444 238l-36 36" />
+          <path d="M92 76h352M92 126h352M92 176h352M92 246h352M92 296h352" />
+          <path d="M188 76v170M258 126v120M316 126v170M374 176v120" />
+          <circle cx="188" cy="76" r="11" /><circle cx="258" cy="126" r="11" />
+          <circle cx="316" cy="126" r="11" /><circle cx="374" cy="176" r="11" />
+          <circle cx="188" cy="246" r="15" /><path d="M188 231v30M173 246h30" />
+          <circle cx="258" cy="246" r="15" /><path d="M258 231v30M243 246h30" />
+          <circle cx="316" cy="296" r="15" /><path d="M316 281v30M301 296h30" />
+          <circle cx="374" cy="296" r="15" /><path d="M374 281v30M359 296h30" />
+          <rect x="424" y="226" width="42" height="40" rx="8" />
+          <rect x="424" y="276" width="42" height="40" rx="8" />
+          <path d="M434 255q11 -20 22 0M434 305q11 -20 22 0" />
         </g>
         <g class="visual-labels">
-          <text x="72" y="320">encode</text><text x="176" y="320">syndrome</text><text x="298" y="320">decode</text><text x="400" y="320">recover</text>
+          <text x="48" y="82">q1</text><text x="48" y="132">q2</text><text x="48" y="182">q3</text>
+          <text x="36" y="252">a12</text><text x="36" y="302">a23</text>
+          <text x="118" y="332">3-qubit bit-flip syndrome: measure Z1Z2 and Z2Z3</text>
         </g>
       </svg>
     </div>

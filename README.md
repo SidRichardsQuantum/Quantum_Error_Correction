@@ -11,6 +11,10 @@ Website: [sidrichardsquantum.github.io/Quantum_Error_Correction](https://sidrich
 
 This repository is educational and code-oriented: it uses pure state vectors, Pauli errors, stabilizer measurements, and focused scripts that generate figures under `images/`.
 
+Package archives are built as Octave `.tar.gz` packages. Local builds write to
+`dist/`; public release archives should be attached to
+[GitHub Releases](https://github.com/SidRichardsQuantum/Quantum_Error_Correction/releases).
+
 ## Implemented Codes
 
 | Code or decoder | Physical qubits | What is implemented |
@@ -28,11 +32,28 @@ This repository is educational and code-oriented: it uses pure state vectors, Pa
 
 ## Quickstart
 
-Install Octave, then run the tests:
+Install Octave, then load the checkout paths:
+
+```bash
+octave --no-gui --eval "qec_setup; qec_about"
+```
+
+Run the tests:
 
 ```bash
 octave --no-gui tests/run_all_tests.m
 ```
+
+Or use the package archive workflow:
+
+```bash
+make package
+octave --no-gui --eval "pkg install dist/qec-0.2.0.tar.gz"
+octave --no-gui --eval "pkg load qec; qec_about"
+```
+
+Published package archives, when available, are listed on
+[GitHub Releases](https://github.com/SidRichardsQuantum/Quantum_Error_Correction/releases).
 
 Run an example:
 
@@ -125,9 +146,15 @@ Surface-3 Monte Carlo sweeps cache reusable `.mat` results under `cache/`, which
   examples, tests, and limits.
 - `tools/build_pages_site.py`: GitHub Pages builder, including generated
   `api.html` source-reference output.
+- `tools/build_octave_package.py`: Builds an Octave package archive under
+  `dist/`.
 - `docs/SIMULATION_REPORT.md`: Generated compact simulation table.
+- `docs/REPOSITORY_LAYOUT.md`: Development layout and release package layout.
 - `docs/ROADMAP.md`: Near-term decoder, modeling, and release priorities.
-- `Makefile`: Shortcuts for tests, examples, reports, figures, site build, and validation.
+- `qec_setup.m`: Adds source and example paths for a cloned checkout.
+- `DESCRIPTION`, `INDEX`, `COPYING`: Octave package metadata.
+- `Makefile`: Shortcuts for tests, examples, reports, figures, site build,
+  package build, and validation.
 - `images/`: Generated PNG outputs.
 
 ## Notes

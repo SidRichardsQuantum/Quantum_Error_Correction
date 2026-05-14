@@ -1,0 +1,57 @@
+qec >> Quantum Error Correction
+
+Core utilities
+ qec_about
+ qec_version
+ pauli
+ qstates
+ normalize_state
+ state_fidelity
+ computational_basis_state
+ kronN
+
+Bit-flip and phase-flip repetition codes
+ encode_bitflip
+ encode_phaseflip
+ syndrome_bitflip
+ syndrome_phaseflip
+ correct_bitflip
+ correct_phaseflip
+ recover_bitflip
+ recover_phaseflip
+ decode_majority
+ decode_repetition_min_weight
+
+Stabilizer codes
+ encode_code_state
+ encode_fivequbit
+ encode_steane
+ encode_shor
+ encode_color7
+ fivequbit_stabilizers
+ steane_parity_check
+ color7_stabilizers
+ stabilizers_for_code
+ syndrome_fivequbit
+ syndrome_steane
+ syndrome_shor
+ syndrome_color7
+ recover_fivequbit
+ recover_steane
+ recover_shor
+ recover_color7
+
+Bacon-Shor and surface-code prototypes
+ bacon_shor_layout
+ recover_bacon_shor_pauli
+ surface_layout
+ surface_checks
+ surface_syndrome
+ surface_logical_failure
+ decode_surface_min_weight
+ decode_surface_union_find
+ simulate_surface_pauli_once
+ sweep_surface_distance_logical_error
+ surface3_measurement_schedule
+ simulate_surface3_circuit_level_once
+ sweep_surface3_pauli_logical_error

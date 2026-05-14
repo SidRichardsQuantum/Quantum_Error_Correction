@@ -66,7 +66,7 @@ The surface-code prototype uses a 3x3 data-qubit layout:
 7 8 9
 ```
 
-The compact model uses four Z-check plaquette supports, `[1 2 4 5]`, `[2 3 5 6]`, `[4 5 7 8]`, and `[5 6 8 9]`. It also uses four low-weight X-check supports that commute with those Z checks and give unique single-Z-error syndromes. These X-check supports are a prototype modeling choice rather than a full circuit layout. Rows and columns are treated as length-3 logical-chain representatives. The noisy-syndrome surface-3 helpers flip classical syndrome bits and majority-vote repeated rounds before decoding. See `docs/SURFACE3.md` for the layout, syndrome functions, logical checks, caching behavior, and current limits.
+The compact model uses four Z-check plaquette supports, `[1 2 4 5]`, `[2 3 5 6]`, `[4 5 7 8]`, and `[5 6 8 9]`. It also uses four low-weight X-check supports that commute with those Z checks and give unique single-Z-error syndromes. These X-check supports are a prototype modeling choice rather than a full circuit layout. Rows and columns are treated as length-3 logical-chain representatives. The noisy-syndrome surface-3 helpers flip classical syndrome bits and majority-vote repeated rounds before decoding. See [docs/SURFACE3.md](SURFACE3.md) for the layout, syndrome functions, logical checks, caching behavior, and current limits.
 
 ### 8. Logical Error Rate
 
