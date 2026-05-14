@@ -27,8 +27,8 @@ Package archives are built as Octave `.tar.gz` packages. Local builds write to
 | 9-qubit Shor code | 9 | Bit/phase syndrome and single-qubit Pauli recovery |
 | 3x3 Bacon-Shor subsystem code | 9 | Pauli-frame row/column syndrome decoder and logical residual check |
 | 1D repetition decoder | variable | Minimum-weight syndrome decoder |
-| Surface-3 prototype | 9 data qubits + 8 ancillas | X/Z/Pauli code-capacity model, noisy syndrome rounds, circuit-level schedule prototype, cached minimum-weight lookup |
-| Generic surface-layout decoder | odd d | Variable-distance square layout, plaquette syndromes, cached small-pattern lookup, peeling fallback, and d=3/5/7 benchmark scripts |
+| Surface-3 prototype | 9 data qubits + 8 ancillas | X/Z/Pauli code-capacity model, noisy syndrome rounds with detector history, circuit-level schedule prototype, cached minimum-weight lookup |
+| Generic surface-layout decoder | odd d | Variable-distance square layout, plaquette syndromes, cached small-pattern lookup, bounded graph-search baseline, peeling fallback, and configurable d=3/5/7 benchmark scripts |
 
 ## Quickstart
 
@@ -90,6 +90,12 @@ Run the surface-layout distance benchmark:
 ```bash
 octave --no-gui examples/benchmark_surface_distance_decoder.m
 octave --no-gui examples/plot_surface_distance_scaling.m
+```
+
+Override surface-layout benchmark settings:
+
+```bash
+octave --no-gui examples/benchmark_surface_distance_decoder.m -- --trials=200 --seed=7 --ps="0 0.02 0.04" --distances="3 5" --decoders=min_weight,graph_matching
 ```
 
 Run a longer surface-code walkthrough:

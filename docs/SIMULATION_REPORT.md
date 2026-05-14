@@ -8,7 +8,7 @@ This report uses intentionally small sample counts so it can run quickly in CI o
 
 | Field | Value |
 | --- | --- |
-| Generated at | `20260514T015423` |
+| Generated at | `reproducible` |
 | Octave version | `8.4.0` |
 | RNG seed | `7` |
 | Surface-3 cache version | `surface3-v1` |
@@ -24,7 +24,7 @@ This report uses intentionally small sample counts so it can run quickly in CI o
 | Shor | 9 | Distance 3 concatenated-style code | Corrects every single-qubit X/Y/Z error |
 | Bacon-Shor | 9 | Distance 3 subsystem Pauli-frame model | Corrects every single-qubit X/Y/Z error by logical residual parity |
 | Surface-3 prototype | 9 data qubits | X/Z/Pauli code-capacity model | Minimum-weight lookup corrects single X, Z, and Y errors |
-| Generic surface layout | odd d-by-d data grids | Code-capacity Pauli model | Exact d=3 lookup, bounded d=5 lookup, and peeling fallback for decoder comparisons |
+| Generic surface layout | odd d-by-d data grids | Code-capacity Pauli model | Exact d=3 lookup, bounded d=5 lookup, bounded graph baseline, and peeling fallback for decoder comparisons |
 
 ## Depolarizing Noise Snapshot
 
@@ -75,7 +75,7 @@ Small surface-code model with cached minimum-weight correction lookup for X-only
 | 0.08 | 500 | 0.122 | 0.098 | 0.072 |
 | 0.14 | 500 | 0.326 | 0.202 | 0.204 |
 
-Surface-3 channel cache hit: `1`.
+Surface-3 channel cache version: `surface3-v1`.
 
 ## Surface-3 Noisy Syndrome Rounds
 
@@ -87,18 +87,22 @@ Classical readout noise on syndrome bits with majority vote across repeated roun
 | 3 | 300 | 0.200 | 0.137 |
 | 5 | 300 | 0.143 | 0.080 |
 
-Surface-3 noisy-syndrome cache hit: `1`.
+Surface-3 noisy-syndrome cache version: `surface3-v1`.
 
 ## Generic Surface-Layout Distance Benchmark
 
-Variable-distance d-by-d surface-layout model under independent Pauli noise. The decoder uses cached minimum-weight lookup for small patterns and a peeling fallback for unresolved syndromes.
+Variable-distance d-by-d surface-layout model under independent Pauli noise. The table compares the default lookup-plus-peeling decoder against a bounded syndrome-graph baseline.
 
-| Error probability | Trials | d=3 failure | d=5 failure | d=7 failure |
-| ---: | ---: | ---: | ---: | ---: |
-| 0.00 | 8 | 0.000 | 0.000 | 0.000 |
-| 0.03 | 8 | 0.000 | 0.000 | 0.125 |
-| 0.06 | 8 | 0.000 | 0.000 | 0.125 |
-| 0.09 | 8 | 0.375 | 0.125 | 0.250 |
+| Decoder | Error probability | Trials | d=3 failure | d=5 failure | d=7 failure |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| min_weight | 0.00 | 8 | 0.000 | 0.000 | 0.000 |
+| min_weight | 0.03 | 8 | 0.000 | 0.000 | 0.125 |
+| min_weight | 0.06 | 8 | 0.000 | 0.000 | 0.125 |
+| min_weight | 0.09 | 8 | 0.375 | 0.125 | 0.250 |
+| graph_matching | 0.00 | 8 | 0.000 | 0.000 | 0.000 |
+| graph_matching | 0.03 | 8 | 0.000 | 0.000 | 0.125 |
+| graph_matching | 0.06 | 8 | 0.000 | 0.125 | 0.500 |
+| graph_matching | 0.09 | 8 | 0.375 | 0.375 | 0.625 |
 
 ## Generated Figures
 

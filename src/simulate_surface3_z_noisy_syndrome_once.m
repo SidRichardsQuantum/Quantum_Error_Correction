@@ -14,6 +14,7 @@ e = rand(1,9) < p_data;
 out.error = e;
 out.syndrome_true = surface3_z_syndrome(e);
 out.syndrome_history = history;
+out.detector_history = syndrome_detector_history(history);
 out.syndrome_hat = s_hat;
 out.correction = correction;
 out.residual = residual;

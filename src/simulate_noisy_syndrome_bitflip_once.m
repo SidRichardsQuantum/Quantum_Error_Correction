@@ -12,6 +12,7 @@ psi_noisy = apply_error_pattern(psi, err);
 
 out.error = err;
 out.syndrome_history = history;
+out.detector_history = syndrome_detector_history(history);
 out.syndrome_hat = s_hat;
 out.fidelity = state_fidelity(psi, psi_corr);
 out.success = out.fidelity > 1 - 1e-8;

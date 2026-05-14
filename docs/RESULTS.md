@@ -118,7 +118,7 @@ This Monte Carlo sweep applies independent depolarizing noise and estimates logi
   <img src="../images/bitflip_noisy_syndrome_rounds.png" alt="Bit-flip noisy syndrome rounds" width="600">
 </p>
 
-This plot models classical readout errors in the reported bit-flip syndrome. Repeating syndrome extraction and aggregating the result reduces readout-induced decoder mistakes.
+This plot models classical readout errors in the reported bit-flip syndrome. Repeating syndrome extraction and aggregating the result reduces readout-induced decoder mistakes. The noisy-syndrome trial output includes both raw syndrome history and detector-history differences between adjacent rounds.
 
 ## Surface-3 Prototype
 
@@ -144,7 +144,7 @@ This comparison shows X-only, Z-only, and independent Pauli X/Y/Z logical failur
   <img src="../images/surface3_noisy_syndrome_rounds.png" alt="Surface-3 noisy syndrome rounds" width="600">
 </p>
 
-This plot models classical readout errors on surface-3 syndrome bits. Each syndrome bit is measured repeatedly and majority-voted before decoding.
+This plot models classical readout errors on surface-3 syndrome bits. Each syndrome bit is measured repeatedly and majority-voted before decoding. Surface-3 noisy-syndrome and circuit-level trials expose detector-history matrices alongside the raw measurement history.
 
 ## Generic Surface-Layout Decoder Scaling
 
@@ -154,7 +154,7 @@ This plot models classical readout errors on surface-3 syndrome bits. Each syndr
   <img src="../images/surface_distance_logical_error_scaling.png" alt="Generic surface-layout decoder logical error scaling" width="600">
 </p>
 
-This benchmark compares the variable-distance square-layout decoder for `d = 3`, `d = 5`, and `d = 7` under the same code-capacity Pauli noise model. The decoder uses cached exact lookup for `d = 3`, cached weight-2 lookup for `d = 5`, and a vectorized peeling fallback for larger unresolved syndromes.
+This benchmark compares the variable-distance square-layout decoder for `d = 3`, `d = 5`, and `d = 7` under the same code-capacity Pauli noise model. It now plots the default cached lookup plus peeling decoder alongside a bounded syndrome-graph baseline. The graph baseline is exact only within its searched candidate weight; the peeling branch is a compact heuristic for unresolved larger-distance syndromes.
 
 ## Generated Report
 
@@ -166,7 +166,7 @@ This benchmark compares the variable-distance square-layout decoder for `d = 3`,
 - The 5-qubit, Steane, and Shor implementations verify exact recovery for every single-qubit Pauli error.
 - The depolarizing and noisy-syndrome examples are lightweight educational simulations, not hardware-calibrated noise models.
 - The surface-3 code now supports X-only, Z-only, combined Pauli code-capacity simulations, repeated noisy syndrome readout, and a compact circuit-level schedule prototype.
-- The generic surface-layout path now includes d=3/5/7 benchmark scripts for comparing small-distance decoder behavior.
+- The generic surface-layout path now includes d=3/5/7 benchmark scripts with configurable trial count, seed, physical error range, and decoder list.
 
 ---
 

@@ -18,7 +18,7 @@ s = s(:).';
 layout = surface_layout(d);
 
 if d <= 3
-    ehat = exhaustive_lookup(s, d, kind);
+    ehat = surface_decoder_lookup(s, d, kind, inf);
     return;
 end
 
@@ -27,7 +27,7 @@ if d <= 5
 else
     lookup_weight = 1;
 end
-ehat = bounded_lookup(s, d, kind, lookup_weight);
+ehat = surface_decoder_lookup(s, d, kind, lookup_weight);
 if any(ehat)
     return;
 end
@@ -36,113 +36,6 @@ ehat = decode_surface_union_find(s, d, kind);
 if ~isequal(surface_syndrome(ehat, d, kind), s)
     ehat = greedy_polish(ehat, s, d, kind, layout.n);
 end
-end
-
-function ehat = exhaustive_lookup(s, d, kind)
-table = exhaustive_lookup_table(d, kind);
-matches = find(all(table.syndromes == repmat(s, size(table.syndromes, 1), 1), 2), 1);
-if ~isempty(matches)
-    ehat = table.candidates(matches, :);
-    return;
-end
-n = d * d;
-ehat = zeros(1, n);
-end
-
-function table = exhaustive_lookup_table(d, kind)
-persistent cache;
-if isempty(cache)
-    cache = {};
-end
-
-cache_key = sprintf('exhaustive:%d:%s', d, lower(kind));
-for k = 1:size(cache, 1)
-    if strcmp(cache{k, 1}, cache_key)
-        table = cache{k, 2};
-        return;
-    end
-end
-
-n = d * d;
-best_w = inf;
-candidates = zeros(0, n);
-syndromes = zeros(0, numel(surface_checks(d, kind)));
-weights = [];
-for mask = 0:(2^n - 1)
-    candidate = zeros(1, n);
-    for q = 1:n
-        candidate(q) = bitget(mask, n - q + 1);
-    end
-    syndrome = surface_syndrome(candidate, d, kind);
-    w = sum(candidate);
-    match = find(all(syndromes == repmat(syndrome, size(syndromes, 1), 1), 2), 1);
-    if isempty(match)
-        candidates(end + 1, :) = candidate;
-        syndromes(end + 1, :) = syndrome;
-        weights(end + 1) = w;
-    elseif w < weights(match)
-        candidates(match, :) = candidate;
-        weights(match) = w;
-    end
-end
-table.candidates = candidates;
-table.syndromes = syndromes;
-table.weights = weights;
-cache(end + 1, :) = {cache_key, table};
-end
-
-function ehat = bounded_lookup(s, d, kind, max_weight)
-n = d * d;
-table = bounded_lookup_table(d, kind, max_weight);
-matches = find(all(table.syndromes == repmat(s, size(table.syndromes, 1), 1), 2), 1);
-if ~isempty(matches)
-    ehat = table.candidates(matches, :);
-    return;
-end
-ehat = zeros(1, n);
-end
-
-function table = bounded_lookup_table(d, kind, max_weight)
-persistent cache;
-if isempty(cache)
-    cache = {};
-end
-
-cache_key = sprintf('%d:%s:%d', d, lower(kind), max_weight);
-for k = 1:size(cache, 1)
-    if strcmp(cache{k, 1}, cache_key)
-        table = cache{k, 2};
-        return;
-    end
-end
-
-n = d * d;
-candidates = zeros(1, n);
-syndromes = surface_syndrome(candidates(1, :), d, kind);
-weights = 0;
-
-for w = 1:max_weight
-    combos = nchoosek(1:n, w);
-    for row = 1:size(combos, 1)
-        candidate = zeros(1, n);
-        candidate(combos(row, :)) = 1;
-        syndrome = surface_syndrome(candidate, d, kind);
-        match = find(all(syndromes == repmat(syndrome, size(syndromes, 1), 1), 2), 1);
-        if isempty(match)
-            candidates(end + 1, :) = candidate;
-            syndromes(end + 1, :) = syndrome;
-            weights(end + 1) = w;
-        elseif w < weights(match)
-            candidates(match, :) = candidate;
-            weights(match) = w;
-        end
-    end
-end
-
-table.candidates = candidates;
-table.syndromes = syndromes;
-table.weights = weights;
-cache(end + 1, :) = {cache_key, table};
 end
 
 function ehat = greedy_polish(ehat, target, d, kind, n)

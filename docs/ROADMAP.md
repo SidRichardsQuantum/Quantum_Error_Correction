@@ -5,15 +5,15 @@ This roadmap keeps the project focused on educational quantum error-correction i
 ## Near Term
 
 - Keep the generic surface-layout decoder benchmarks reproducible for `d = 3`, `d = 5`, and `d = 7`.
-- Add more regression tests for decoder edge cases and representative higher-weight error patterns.
-- Expand generated result summaries when new figures or code families are added.
+- Add broader regression tests for decoder edge cases beyond the representative higher-weight patterns already covered.
+- Expand generated result summaries when new figures, code families, or decoder baselines are added.
 - Keep GitHub Pages output synchronized with the README, docs, and API source reference.
 
 ## Decoder Work
 
-- Compare the current bounded-lookup plus peeling decoder against a clearer graph-matching baseline.
-- Add optional benchmark knobs for trial count, seed, and plotted physical error range.
-- Document where each decoder is exact, heuristic, or only a teaching model.
+- Improve the bounded syndrome-graph baseline or replace it with a true MWPM-style decoder if the project grows beyond educational code-capacity studies.
+- Add optional benchmark knobs only when new scripts need them; the generic surface-layout benchmark already supports trial count, seed, physical error range, distances, and decoder list.
+- Keep documenting where each decoder is exact, heuristic, or only a teaching model.
 
 ## Modeling Work
 

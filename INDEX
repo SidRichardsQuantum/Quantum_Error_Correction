@@ -44,12 +44,16 @@ Stabilizer codes
 Bacon-Shor and surface-code prototypes
  bacon_shor_layout
  recover_bacon_shor_pauli
+ syndrome_detector_history
  surface_layout
  surface_checks
  surface_syndrome
  surface_logical_failure
+ surface_decoder_lookup
  decode_surface_min_weight
+ decode_surface_graph_matching
  decode_surface_union_find
+ surface_benchmark_options
  simulate_surface_pauli_once
  sweep_surface_distance_logical_error
  surface3_measurement_schedule

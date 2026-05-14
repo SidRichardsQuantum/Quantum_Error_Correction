@@ -19,7 +19,11 @@ fprintf(fid, 'This report uses intentionally small sample counts so it can run q
 fprintf(fid, '## Reproducibility Metadata\n\n');
 fprintf(fid, '| Field | Value |\n');
 fprintf(fid, '| --- | --- |\n');
-fprintf(fid, '| Generated at | `%s` |\n', datestr(now, 30));
+report_timestamp = getenv('QEC_REPORT_TIMESTAMP');
+if isempty(report_timestamp)
+    report_timestamp = 'reproducible';
+end
+fprintf(fid, '| Generated at | `%s` |\n', report_timestamp);
 fprintf(fid, '| Octave version | `%s` |\n', version());
 fprintf(fid, '| RNG seed | `7` |\n');
 fprintf(fid, '| Surface-3 cache version | `%s` |\n\n', surface3_cache_version());
@@ -34,7 +38,7 @@ fprintf(fid, '| Steane | 7 | Distance 3 CSS code | Corrects every single-qubit X
 fprintf(fid, '| Shor | 9 | Distance 3 concatenated-style code | Corrects every single-qubit X/Y/Z error |\n');
 fprintf(fid, '| Bacon-Shor | 9 | Distance 3 subsystem Pauli-frame model | Corrects every single-qubit X/Y/Z error by logical residual parity |\n');
 fprintf(fid, '| Surface-3 prototype | 9 data qubits | X/Z/Pauli code-capacity model | Minimum-weight lookup corrects single X, Z, and Y errors |\n');
-fprintf(fid, '| Generic surface layout | odd d-by-d data grids | Code-capacity Pauli model | Exact d=3 lookup, bounded d=5 lookup, and peeling fallback for decoder comparisons |\n\n');
+fprintf(fid, '| Generic surface layout | odd d-by-d data grids | Code-capacity Pauli model | Exact d=3 lookup, bounded d=5 lookup, bounded graph baseline, and peeling fallback for decoder comparisons |\n\n');
 
 fprintf(fid, '## Depolarizing Noise Snapshot\n\n');
 fprintf(fid, 'Independent per-qubit depolarizing noise; logical failure is estimated by state fidelity after recovery.\n\n');
@@ -86,7 +90,7 @@ fprintf(fid, '| ---: | ---: | ---: | ---: | ---: |\n');
 for i = 1:numel(ps_surface)
     fprintf(fid, '| %.2f | %d | %.3f | %.3f | %.3f |\n', ps_surface(i), Nsurf, fail_surface(i), fail_surface_z(i), fail_surface_pauli(i));
 end
-fprintf(fid, '\nSurface-3 channel cache hit: `%d`.\n', meta_surface.cache_hit);
+fprintf(fid, '\nSurface-3 channel cache version: `%s`.\n', meta_surface.cache_version);
 
 fprintf(fid, '\n## Surface-3 Noisy Syndrome Rounds\n\n');
 fprintf(fid, 'Classical readout noise on syndrome bits with majority vote across repeated rounds.\n\n');
@@ -98,20 +102,24 @@ fprintf(fid, '| ---: | ---: | ---: | ---: |\n');
 for i = 1:numel(rounds_surface)
     fprintf(fid, '| %d | %d | %.3f | %.3f |\n', rounds_surface(i), NsurfSyn, fail_syn_x(i), fail_syn_z(i));
 end
-fprintf(fid, '\nSurface-3 noisy-syndrome cache hit: `%d`.\n', meta_surface_syn.cache_hit);
+fprintf(fid, '\nSurface-3 noisy-syndrome cache version: `%s`.\n', meta_surface_syn.cache_version);
 
 fprintf(fid, '\n## Generic Surface-Layout Distance Benchmark\n\n');
-fprintf(fid, 'Variable-distance d-by-d surface-layout model under independent Pauli noise. The decoder uses cached minimum-weight lookup for small patterns and a peeling fallback for unresolved syndromes.\n\n');
+fprintf(fid, 'Variable-distance d-by-d surface-layout model under independent Pauli noise. The table compares the default lookup-plus-peeling decoder against a bounded syndrome-graph baseline.\n\n');
 distances_surface = [3 5 7];
 ps_distance = [0 0.03 0.06 0.09];
 Ndistance = 8;
-distance_results = sweep_surface_distance_logical_error(distances_surface, ps_distance, Ndistance, 11);
-fprintf(fid, '| Error probability | Trials | d=3 failure | d=5 failure | d=7 failure |\n');
-fprintf(fid, '| ---: | ---: | ---: | ---: | ---: |\n');
-for i = 1:numel(ps_distance)
-    fprintf(fid, '| %.2f | %d | %.3f | %.3f | %.3f |\n', ...
-            ps_distance(i), Ndistance, distance_results.logical_error(1, i), ...
-            distance_results.logical_error(2, i), distance_results.logical_error(3, i));
+distance_decoders = {'min_weight', 'graph_matching'};
+fprintf(fid, '| Decoder | Error probability | Trials | d=3 failure | d=5 failure | d=7 failure |\n');
+fprintf(fid, '| --- | ---: | ---: | ---: | ---: | ---: |\n');
+for decoder_idx = 1:numel(distance_decoders)
+    distance_results = sweep_surface_distance_logical_error(distances_surface, ps_distance, Ndistance, 11, distance_decoders{decoder_idx});
+    for i = 1:numel(ps_distance)
+        fprintf(fid, '| %s | %.2f | %d | %.3f | %.3f | %.3f |\n', ...
+                distance_decoders{decoder_idx}, ps_distance(i), Ndistance, ...
+                distance_results.logical_error(1, i), distance_results.logical_error(2, i), ...
+                distance_results.logical_error(3, i));
+    end
 end
 
 fprintf(fid, '\n## Generated Figures\n\n');

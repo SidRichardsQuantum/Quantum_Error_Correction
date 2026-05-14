@@ -25,9 +25,9 @@ Quantum_Error_Correction/
 - Minimum-weight decoder for 1D repetition-code syndromes
 - Projective stabilizer measurements for +/-1 Pauli observables
 - Independent depolarizing-noise simulations
-- Repeated noisy syndrome measurement simulations
+- Repeated noisy syndrome measurement simulations with raw syndrome and detector-history outputs
 - Small distance-3 surface-code prototype with X/Z/Pauli code-capacity sweeps and a minimum-weight matching-style decoder
-- Generic odd-distance surface-layout decoder benchmarks for d=3/5/7
+- Generic odd-distance surface-layout decoder benchmarks for d=3/5/7 with lookup-plus-peeling and bounded graph-search decoder comparisons
 - Monte‑Carlo sweeps and confusion matrices
 - Publication‑quality PNG outputs (saved to images/)
 
@@ -70,6 +70,11 @@ Run the generic surface-layout distance benchmark
 ```bash
 octave --no-gui examples/benchmark_surface_distance_decoder.m
 octave --no-gui examples/plot_surface_distance_scaling.m
+```
+
+Override the generic surface-layout benchmark settings
+```bash
+octave --no-gui examples/benchmark_surface_distance_decoder.m -- --trials=200 --seed=7 --ps="0 0.02 0.04" --distances="3 5" --decoders=min_weight,graph_matching
 ```
 
 Run all text examples
@@ -140,6 +145,10 @@ Example runners:
 - `examples/check_generated_images.m`
 
 Surface-3 Monte Carlo plots cache sweep data under `cache/`. Delete that directory or set `force_cache = true` before running a plot script to force regeneration.
+
+Generic surface-layout benchmark scripts also accept `QEC_SURFACE_TRIALS`,
+`QEC_SURFACE_SEED`, `QEC_SURFACE_PS`, `QEC_SURFACE_DISTANCES`, and
+`QEC_SURFACE_DECODERS` environment overrides.
 
 Each script saves its figure in images/ as a .png.
 For example, running the plotting scripts produces:
