@@ -8,6 +8,8 @@ switch lower(code)
         stabilizers = {'XXI', 'IXX'};
     case {'fivequbit','five'}
         stabilizers = fivequbit_stabilizers();
+    case {'four_two_two','fourtwotwo','422','[[4,2,2]]'}
+        stabilizers = four_two_two_stabilizers();
     case 'steane'
         H = steane_parity_check();
         stabilizers = {};

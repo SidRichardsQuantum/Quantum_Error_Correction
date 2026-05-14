@@ -91,7 +91,7 @@ Surface-3 noisy-syndrome cache version: `surface3-v1`.
 
 ## Generic Surface-Layout Distance Benchmark
 
-Variable-distance d-by-d surface-layout model under independent Pauli noise. The table compares the default lookup-plus-peeling decoder against a bounded syndrome-graph baseline.
+Variable-distance d-by-d surface-layout model under independent Pauli noise. The table compares the default lookup-plus-peeling decoder against MWPM-style matching and bounded syndrome-graph baselines.
 
 | Decoder | Error probability | Trials | d=3 failure | d=5 failure | d=7 failure |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -99,6 +99,10 @@ Variable-distance d-by-d surface-layout model under independent Pauli noise. The
 | min_weight | 0.03 | 8 | 0.000 | 0.000 | 0.125 |
 | min_weight | 0.06 | 8 | 0.000 | 0.000 | 0.125 |
 | min_weight | 0.09 | 8 | 0.375 | 0.125 | 0.250 |
+| mwpm | 0.00 | 8 | 0.000 | 0.000 | 0.000 |
+| mwpm | 0.03 | 8 | 0.000 | 0.000 | 0.000 |
+| mwpm | 0.06 | 8 | 0.000 | 0.000 | 0.125 |
+| mwpm | 0.09 | 8 | 0.375 | 0.125 | 0.250 |
 | graph_matching | 0.00 | 8 | 0.000 | 0.000 | 0.000 |
 | graph_matching | 0.03 | 8 | 0.000 | 0.000 | 0.125 |
 | graph_matching | 0.06 | 8 | 0.000 | 0.125 | 0.500 |

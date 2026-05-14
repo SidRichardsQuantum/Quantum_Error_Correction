@@ -24,18 +24,22 @@ Bit-flip and phase-flip repetition codes
 
 Stabilizer codes
  encode_code_state
+ encode_four_two_two
  encode_fivequbit
  encode_steane
  encode_shor
  encode_color7
+ four_two_two_stabilizers
  fivequbit_stabilizers
  steane_parity_check
  color7_stabilizers
  stabilizers_for_code
+ syndrome_four_two_two
  syndrome_fivequbit
  syndrome_steane
  syndrome_shor
  syndrome_color7
+ detect_four_two_two
  recover_fivequbit
  recover_steane
  recover_shor
@@ -51,6 +55,7 @@ Bacon-Shor and surface-code prototypes
  surface_logical_failure
  surface_decoder_lookup
  decode_surface_min_weight
+ decode_surface_mwpm
  decode_surface_graph_matching
  decode_surface_union_find
  surface_benchmark_options

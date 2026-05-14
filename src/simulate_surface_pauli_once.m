@@ -38,6 +38,8 @@ switch lower(decoder)
         ehat = decode_surface_min_weight(s, d, kind);
     case {'graph_matching', 'graph_search'}
         ehat = decode_surface_graph_matching(s, d, kind);
+    case {'mwpm', 'mwpm_style', 'matching'}
+        ehat = decode_surface_mwpm(s, d, kind);
     case {'union_find', 'peeling'}
         ehat = decode_surface_union_find(s, d, kind);
     otherwise

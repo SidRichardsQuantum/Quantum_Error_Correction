@@ -4,6 +4,8 @@ function n = code_num_qubits(code)
 switch lower(code)
     case {'bitflip','phaseflip'}
         n = 3;
+    case {'four_two_two','fourtwotwo','422','[[4,2,2]]'}
+        n = 4;
     case {'fivequbit','five'}
         n = 5;
     case {'steane','color7','color_code','colorcode'}

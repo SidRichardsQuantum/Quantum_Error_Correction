@@ -74,7 +74,7 @@ octave --no-gui examples/plot_surface_distance_scaling.m
 
 Override the generic surface-layout benchmark settings
 ```bash
-octave --no-gui examples/benchmark_surface_distance_decoder.m -- --trials=200 --seed=7 --ps="0 0.02 0.04" --distances="3 5" --decoders=min_weight,graph_matching
+octave --no-gui examples/benchmark_surface_distance_decoder.m -- --trials=200 --seed=7 --ps="0 0.02 0.04" --distances="3 5" --decoders=min_weight,mwpm,graph_matching
 ```
 
 Run all text examples

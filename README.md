@@ -21,6 +21,7 @@ Package archives are built as Octave `.tar.gz` packages. Local builds write to
 | --- | ---: | --- |
 | 3-qubit bit-flip repetition | 3 | Encode, syndrome, correction, Monte Carlo logical error |
 | 3-qubit phase-flip repetition | 3 | Encode, X-parity syndrome, Z correction |
+| [[4,2,2]] error-detecting code | 4 | Two-logical-qubit encoding, stabilizer syndrome, single-qubit Pauli detection |
 | 5-qubit perfect code | 5 | Stabilizer encoding and single-qubit Pauli recovery |
 | 7-qubit Steane code | 7 | CSS stabilizer syndrome and single-qubit Pauli recovery |
 | 7-qubit triangular color code | 7 | Color-code-facing CSS stabilizer recovery for the smallest triangular code |
@@ -28,7 +29,7 @@ Package archives are built as Octave `.tar.gz` packages. Local builds write to
 | 3x3 Bacon-Shor subsystem code | 9 | Pauli-frame row/column syndrome decoder and logical residual check |
 | 1D repetition decoder | variable | Minimum-weight syndrome decoder |
 | Surface-3 prototype | 9 data qubits + 8 ancillas | X/Z/Pauli code-capacity model, noisy syndrome rounds with detector history, circuit-level schedule prototype, cached minimum-weight lookup |
-| Generic surface-layout decoder | odd d | Variable-distance square layout, plaquette syndromes, cached small-pattern lookup, bounded graph-search baseline, peeling fallback, and configurable d=3/5/7 benchmark scripts |
+| Generic surface-layout decoder | odd d | Variable-distance square layout, plaquette syndromes, cached small-pattern lookup, MWPM-style matching baseline, bounded graph-search baseline, peeling fallback, and configurable d=3/5/7 benchmark scripts |
 
 ## Quickstart
 
@@ -67,6 +68,12 @@ Run a minimal recovery example:
 octave --no-gui examples/minimal_bitflip_recovery.m
 ```
 
+Run a minimal error-detection example:
+
+```bash
+octave --no-gui examples/minimal_four_two_two_detection.m
+```
+
 Run a Bacon-Shor Pauli-frame recovery example:
 
 ```bash
@@ -95,7 +102,7 @@ octave --no-gui examples/plot_surface_distance_scaling.m
 Override surface-layout benchmark settings:
 
 ```bash
-octave --no-gui examples/benchmark_surface_distance_decoder.m -- --trials=200 --seed=7 --ps="0 0.02 0.04" --distances="3 5" --decoders=min_weight,graph_matching
+octave --no-gui examples/benchmark_surface_distance_decoder.m -- --trials=200 --seed=7 --ps="0 0.02 0.04" --distances="3 5" --decoders=min_weight,mwpm,graph_matching
 ```
 
 Run a longer surface-code walkthrough:
@@ -146,7 +153,7 @@ Surface-3 Monte Carlo sweeps cache reusable `.mat` results under `cache/`, which
 - `examples/`: Plot, figure regeneration, and report scripts.
 - `docs/`: Longer usage, theory, setup, and results notes.
 - `docs/algorithms/`: Per-code implementation notes for the bit-flip,
-  phase-flip, Shor, Steane, 5-qubit, triangular color-code, Bacon-Shor,
+  phase-flip, [[4,2,2]], Shor, Steane, 5-qubit, triangular color-code, Bacon-Shor,
   generic surface-layout, and 1D repetition decoder helpers.
 - `docs/ALGORITHMS.md`: Cross-reference table linking schemes, source files,
   examples, tests, and limits.

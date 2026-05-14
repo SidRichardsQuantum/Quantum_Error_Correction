@@ -26,6 +26,7 @@ The test suite checks that the implemented distance-3 codes recover arbitrary lo
 | --- | --- | --- |
 | 3-qubit bit-flip repetition | Single `X` errors | Recovers the encoded logical state |
 | 3-qubit phase-flip repetition | Single `Z` errors | Recovers the encoded logical state |
+| [[4,2,2]] error-detecting code | Single-qubit `X`, `Y`, or `Z` errors | Produces a nonzero detection syndrome |
 | 5-qubit perfect code | Single-qubit `X`, `Y`, or `Z` errors | Recovers the encoded logical state |
 | 7-qubit Steane code | Single-qubit `X`, `Y`, or `Z` errors | Recovers the encoded logical state |
 | 9-qubit Shor code | Single-qubit `X`, `Y`, or `Z` errors | Recovers the encoded logical state |
@@ -154,7 +155,7 @@ This plot models classical readout errors on surface-3 syndrome bits. Each syndr
   <img src="../images/surface_distance_logical_error_scaling.png" alt="Generic surface-layout decoder logical error scaling" width="600">
 </p>
 
-This benchmark compares the variable-distance square-layout decoder for `d = 3`, `d = 5`, and `d = 7` under the same code-capacity Pauli noise model. It now plots the default cached lookup plus peeling decoder alongside a bounded syndrome-graph baseline. The graph baseline is exact only within its searched candidate weight; the peeling branch is a compact heuristic for unresolved larger-distance syndromes.
+This benchmark compares the variable-distance square-layout decoder for `d = 3`, `d = 5`, and `d = 7` under the same code-capacity Pauli noise model. It now plots the default cached lookup plus peeling decoder alongside an MWPM-style matching baseline and a bounded syndrome-graph baseline. The matching and graph baselines are exact only within their searched candidate-fragment weights; the peeling branch is a compact heuristic for unresolved larger-distance syndromes.
 
 ## Generated Report
 
@@ -163,6 +164,7 @@ This benchmark compares the variable-distance square-layout decoder for `d = 3`,
 ## Key Takeaways
 
 - The repetition-code examples demonstrate the basic QEC loop: encode, apply noise, measure syndrome, correct, and estimate logical failure.
+- The `[[4,2,2]]` implementation verifies single-qubit Pauli detection without presenting it as correction.
 - The 5-qubit, Steane, and Shor implementations verify exact recovery for every single-qubit Pauli error.
 - The depolarizing and noisy-syndrome examples are lightweight educational simulations, not hardware-calibrated noise models.
 - The surface-3 code now supports X-only, Z-only, combined Pauli code-capacity simulations, repeated noisy syndrome readout, and a compact circuit-level schedule prototype.

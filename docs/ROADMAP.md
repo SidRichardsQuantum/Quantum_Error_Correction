@@ -11,7 +11,7 @@ This roadmap keeps the project focused on educational quantum error-correction i
 
 ## Decoder Work
 
-- Improve the bounded syndrome-graph baseline or replace it with a true MWPM-style decoder if the project grows beyond educational code-capacity studies.
+- Extend the MWPM-style surface decoder with richer geometry or an optional Blossom-backed path if the project grows beyond educational code-capacity studies.
 - Add optional benchmark knobs only when new scripts need them; the generic surface-layout benchmark already supports trial count, seed, physical error range, distances, and decoder list.
 - Keep documenting where each decoder is exact, heuristic, or only a teaching model.
 

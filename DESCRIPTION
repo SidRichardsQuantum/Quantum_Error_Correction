@@ -4,7 +4,7 @@ Date: 2026-05-14
 Author: Sid Richards
 Maintainer: Sid Richards
 Title: Quantum Error Correction
-Description: Educational MATLAB/Octave implementations of quantum error-correction codes, syndrome decoders, and code-capacity Monte Carlo simulations. Includes repetition, Shor, Steane, five-qubit, color, Bacon-Shor, and surface-layout examples.
+Description: Educational MATLAB/Octave implementations of quantum error-correction codes, syndrome decoders, and code-capacity Monte Carlo simulations. Includes repetition, [[4,2,2]], Shor, Steane, five-qubit, color, Bacon-Shor, and surface-layout examples.
 Categories: Education, Science, Quantum Computing
 Depends: octave (>= 6.0.0)
 License: MIT

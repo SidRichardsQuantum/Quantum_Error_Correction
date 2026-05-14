@@ -10,7 +10,7 @@ if ~exist('distances', 'var'), distances = [3 5 7]; end
 if ~exist('ps', 'var'), ps = [0 0.03 0.06 0.09]; end
 if ~exist('N', 'var'), N = 8; end
 if ~exist('seed', 'var'), seed = 11; end
-if ~exist('decoders', 'var'), decoders = {'min_weight', 'graph_matching'}; end
+if ~exist('decoders', 'var'), decoders = {'min_weight', 'mwpm', 'graph_matching'}; end
 
 opts = surface_benchmark_options(distances, ps, N, seed, decoders);
 distances = opts.distances;

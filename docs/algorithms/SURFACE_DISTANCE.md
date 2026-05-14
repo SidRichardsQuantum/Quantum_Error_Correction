@@ -35,19 +35,27 @@ baseline. It reuses the same cached lookup machinery, but stops after the
 configured candidate weight instead of peeling unresolved syndromes. This makes
 it useful as a clearer comparison point for small error patterns.
 
-Both decoders are compact teaching decoders. The lookup branches are exact only
-within their searched candidate weight, and the larger-distance peeling branch
-is not a calibrated MWPM or threshold-quality union-find implementation.
+`decode_surface_mwpm(s, d, kind)` is an MWPM-style decoder for the same compact
+layout. It first checks for a bounded minimum-weight correction for the whole
+syndrome, then builds defect-defect and defect-virtual-boundary fragments with
+the cached lookup table and solves the active-defect matching exactly by dynamic
+programming. This keeps the implementation pure Octave and practical for the
+default `d = 3`, `d = 5`, and `d = 7` benchmark regime.
+
+All decoders are compact teaching decoders. The lookup branches are exact only
+within their searched candidate weight, the MWPM-style branch is not a Blossom
+implementation, and the larger-distance peeling branch is not a calibrated
+threshold-quality union-find implementation.
 
 ## Simulation
 
 `simulate_surface_pauli_once(d, p, decoder)` samples independent Pauli errors
 and decodes X and Z components separately. `decoder` can be `min_weight`,
-`graph_matching`, or `union_find`. `sweep_surface_distance_logical_error(...)`
+`mwpm`, `graph_matching`, or `union_find`. `sweep_surface_distance_logical_error(...)`
 compares logical-failure estimates across distances, for example:
 
 ```matlab
-results = sweep_surface_distance_logical_error([3 5], [0.01 0.03 0.05], 100, 7, 'graph_matching');
+results = sweep_surface_distance_logical_error([3 5], [0.01 0.03 0.05], 100, 7, 'mwpm');
 ```
 
 For a compact d=3/5/7 decoder comparison:
@@ -60,7 +68,7 @@ octave --no-gui examples/plot_surface_distance_scaling.m
 Both scripts accept command-line overrides:
 
 ```bash
-octave --no-gui examples/benchmark_surface_distance_decoder.m -- --trials=200 --seed=7 --ps="0 0.02 0.04" --distances="3 5" --decoders=min_weight,graph_matching
+octave --no-gui examples/benchmark_surface_distance_decoder.m -- --trials=200 --seed=7 --ps="0 0.02 0.04" --distances="3 5" --decoders=min_weight,mwpm,graph_matching
 ```
 
 The same settings can be supplied with `QEC_SURFACE_TRIALS`,
@@ -75,6 +83,7 @@ The same settings can be supplied with `QEC_SURFACE_TRIALS`,
 - `src/surface_logical_failure.m`
 - `src/surface_decoder_lookup.m`
 - `src/decode_surface_min_weight.m`
+- `src/decode_surface_mwpm.m`
 - `src/decode_surface_graph_matching.m`
 - `src/decode_surface_union_find.m`
 - `src/surface_benchmark_options.m`
@@ -96,7 +105,7 @@ octave --no-gui tests/run_all_tests.m
 ```
 
 `tests/test_surface_distance.m` checks the layout metadata, single-error
-syndrome correction for `d = 3` and `d = 5`, graph-baseline correction for
-representative `d = 3`, `d = 5`, and `d = 7` patterns, representative
-two-error correction for `d = 5` and `d = 7`, zero-noise simulation, and small
-distance-comparison sweeps.
+syndrome correction for `d = 3` and `d = 5`, graph-baseline and MWPM-style
+correction for representative `d = 3`, `d = 5`, and `d = 7` patterns,
+representative two-error correction for `d = 5` and `d = 7`, zero-noise
+simulation, and small distance-comparison sweeps.

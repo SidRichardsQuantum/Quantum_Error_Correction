@@ -105,11 +105,11 @@ end
 fprintf(fid, '\nSurface-3 noisy-syndrome cache version: `%s`.\n', meta_surface_syn.cache_version);
 
 fprintf(fid, '\n## Generic Surface-Layout Distance Benchmark\n\n');
-fprintf(fid, 'Variable-distance d-by-d surface-layout model under independent Pauli noise. The table compares the default lookup-plus-peeling decoder against a bounded syndrome-graph baseline.\n\n');
+fprintf(fid, 'Variable-distance d-by-d surface-layout model under independent Pauli noise. The table compares the default lookup-plus-peeling decoder against MWPM-style matching and bounded syndrome-graph baselines.\n\n');
 distances_surface = [3 5 7];
 ps_distance = [0 0.03 0.06 0.09];
 Ndistance = 8;
-distance_decoders = {'min_weight', 'graph_matching'};
+distance_decoders = {'min_weight', 'mwpm', 'graph_matching'};
 fprintf(fid, '| Decoder | Error probability | Trials | d=3 failure | d=5 failure | d=7 failure |\n');
 fprintf(fid, '| --- | ---: | ---: | ---: | ---: | ---: |\n');
 for decoder_idx = 1:numel(distance_decoders)
