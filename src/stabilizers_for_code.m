@@ -17,9 +17,13 @@ switch lower(code)
         for r = 1:3
             stabilizers{end+1} = row_to_pauli(H(r,:), 'X');
         end
+    case {'color7','color_code','colorcode'}
+        stabilizers = color7_stabilizers();
     case 'shor'
         stabilizers = {'ZZIIIIIII', 'IZZIIIIII', 'IIIZZIIII', 'IIIIZZIII', ...
                        'IIIIIIZZI', 'IIIIIIIZZ', 'XXXXXXIII', 'IIIXXXXXX'};
+    case {'baconshor','bacon_shor'}
+        stabilizers = bacon_shor_stabilizers();
     otherwise
         error('stabilizers_for_code:unknown_code', 'Unknown code %s.', code);
 end

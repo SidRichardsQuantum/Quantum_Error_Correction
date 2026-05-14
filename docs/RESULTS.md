@@ -29,6 +29,7 @@ The test suite checks that the implemented distance-3 codes recover arbitrary lo
 | 5-qubit perfect code | Single-qubit `X`, `Y`, or `Z` errors | Recovers the encoded logical state |
 | 7-qubit Steane code | Single-qubit `X`, `Y`, or `Z` errors | Recovers the encoded logical state |
 | 9-qubit Shor code | Single-qubit `X`, `Y`, or `Z` errors | Recovers the encoded logical state |
+| 3x3 Bacon-Shor subsystem code | Single-qubit `X`, `Y`, or `Z` errors | Produces a non-logical Pauli-frame residual |
 | Surface-3 prototype | Single `X`, `Z`, or `Y` errors on 9 data qubits | Returns to the zero-syndrome class without a logical residual |
 
 ## Bit-Flip Repetition Code

@@ -1,6 +1,13 @@
 # Quantum Error Correction
 
+[![Octave Tests](https://github.com/SidRichardsQuantum/Quantum_Error_Correction/actions/workflows/octave-tests.yml/badge.svg)](https://github.com/SidRichardsQuantum/Quantum_Error_Correction/actions/workflows/octave-tests.yml)
+[![GitHub Pages](https://github.com/SidRichardsQuantum/Quantum_Error_Correction/actions/workflows/pages.yml/badge.svg)](https://github.com/SidRichardsQuantum/Quantum_Error_Correction/actions/workflows/pages.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![GNU Octave](https://img.shields.io/badge/GNU%20Octave-compatible-0790C0)](https://www.gnu.org/software/octave/)
+
 Small MATLAB/Octave implementations of quantum error-correction codes, syndrome decoders, and Monte Carlo simulations.
+
+Website: [sidrichardsquantum.github.io/Quantum_Error_Correction](https://sidrichardsquantum.github.io/Quantum_Error_Correction/)
 
 This repository is educational and code-oriented: it uses pure state vectors, Pauli errors, stabilizer measurements, and focused scripts that generate figures under `images/`.
 
@@ -12,9 +19,12 @@ This repository is educational and code-oriented: it uses pure state vectors, Pa
 | 3-qubit phase-flip repetition | 3 | Encode, X-parity syndrome, Z correction |
 | 5-qubit perfect code | 5 | Stabilizer encoding and single-qubit Pauli recovery |
 | 7-qubit Steane code | 7 | CSS stabilizer syndrome and single-qubit Pauli recovery |
+| 7-qubit triangular color code | 7 | Color-code-facing CSS stabilizer recovery for the smallest triangular code |
 | 9-qubit Shor code | 9 | Bit/phase syndrome and single-qubit Pauli recovery |
+| 3x3 Bacon-Shor subsystem code | 9 | Pauli-frame row/column syndrome decoder and logical residual check |
 | 1D repetition decoder | variable | Minimum-weight syndrome decoder |
 | Surface-3 prototype | 9 data qubits + 8 ancillas | X/Z/Pauli code-capacity model, noisy syndrome rounds, circuit-level schedule prototype, cached minimum-weight lookup |
+| Generic surface-layout decoder | odd d | Variable-distance square layout, plaquette syndromes, small-distance lookup, and larger-distance peeling decoder |
 
 ## Quickstart
 
@@ -34,6 +44,24 @@ Run a minimal recovery example:
 
 ```bash
 octave --no-gui examples/minimal_bitflip_recovery.m
+```
+
+Run a Bacon-Shor Pauli-frame recovery example:
+
+```bash
+octave --no-gui examples/minimal_bacon_shor_recovery.m
+```
+
+Run a triangular color-code recovery example:
+
+```bash
+octave --no-gui examples/minimal_color7_recovery.m
+```
+
+Run a variable-distance surface-layout decoder example:
+
+```bash
+octave --no-gui examples/minimal_surface_distance_decoder.m
 ```
 
 Run a longer surface-code walkthrough:
@@ -83,6 +111,13 @@ Surface-3 Monte Carlo sweeps cache reusable `.mat` results under `cache/`, which
 - `tests/`: Octave-compatible correctness checks.
 - `examples/`: Plot, figure regeneration, and report scripts.
 - `docs/`: Longer usage, theory, setup, and results notes.
+- `docs/algorithms/`: Per-code implementation notes for the bit-flip,
+  phase-flip, Shor, Steane, 5-qubit, triangular color-code, Bacon-Shor,
+  generic surface-layout, and 1D repetition decoder helpers.
+- `docs/ALGORITHMS.md`: Cross-reference table linking schemes, source files,
+  examples, tests, and limits.
+- `tools/build_pages_site.py`: GitHub Pages builder, including generated
+  `api.html` source-reference output.
 - `docs/SIMULATION_REPORT.md`: Generated compact simulation table.
 - `images/`: Generated PNG outputs.
 

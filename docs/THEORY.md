@@ -47,6 +47,7 @@ Measuring these parity operators reveals only parity information, not the logica
 - 9-qubit Shor code: concatenates phase and bit repetition structure and corrects any single-qubit Pauli error.
 - 5-qubit perfect code: smallest distance-3 stabilizer code, using four generators and a syndrome lookup table.
 - 7-qubit Steane code: CSS code using Hamming-code parity checks; X and Z syndromes identify the affected qubit.
+- 3x3 Bacon-Shor subsystem code: row/column parity syndromes identify representative corrections for X and Z Pauli-frame components; logical success is checked by residual row/column parity rather than full gauge-state fidelity.
 - 1D repetition decoder: chooses the minimum-weight error chain compatible with a measured parity syndrome.
 - Small surface-code prototype: a 3x3 rotated-layout code-capacity model using Z-check syndromes for X errors, X-check syndromes for Z errors, and cached minimum-weight matching-style lookups.
 

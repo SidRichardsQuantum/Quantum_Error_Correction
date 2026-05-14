@@ -32,6 +32,7 @@ fprintf(fid, '| Phase-flip repetition | 3 | Distance 3 for Z errors | Corrects o
 fprintf(fid, '| 5-qubit perfect | 5 | Distance 3 stabilizer code | Corrects every single-qubit X/Y/Z error |\n');
 fprintf(fid, '| Steane | 7 | Distance 3 CSS code | Corrects every single-qubit X/Y/Z error |\n');
 fprintf(fid, '| Shor | 9 | Distance 3 concatenated-style code | Corrects every single-qubit X/Y/Z error |\n');
+fprintf(fid, '| Bacon-Shor | 9 | Distance 3 subsystem Pauli-frame model | Corrects every single-qubit X/Y/Z error by logical residual parity |\n');
 fprintf(fid, '| Surface-3 prototype | 9 data qubits | X/Z/Pauli code-capacity model | Minimum-weight lookup corrects single X, Z, and Y errors |\n\n');
 
 fprintf(fid, '## Depolarizing Noise Snapshot\n\n');
@@ -58,6 +59,20 @@ fprintf(fid, '| Rounds | Trials | Logical failure |\n');
 fprintf(fid, '| ---: | ---: | ---: |\n');
 for i = 1:numel(rounds)
     fprintf(fid, '| %d | %d | %.3f |\n', rounds(i), Nsyn, fail_rounds(i));
+end
+
+fprintf(fid, '\n## Bacon-Shor Pauli-Frame Snapshot\n\n');
+fprintf(fid, '3x3 Bacon-Shor subsystem-code Pauli-frame model under independent depolarizing noise.\n\n');
+fprintf(fid, '| p | Trials | Logical failure |\n');
+fprintf(fid, '| ---: | ---: | ---: |\n');
+Nbacon = 200;
+for i = 1:numel(ps)
+    failed = 0;
+    for trial = 1:Nbacon
+        out = simulate_bacon_shor_pauli_once(ps(i));
+        failed = failed + (~out.success);
+    end
+    fprintf(fid, '| %.2f | %d | %.3f |\n', ps(i), Nbacon, failed / Nbacon);
 end
 
 fprintf(fid, '\n## Surface-3 Prototype\n\n');

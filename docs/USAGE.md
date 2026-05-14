@@ -21,6 +21,7 @@ Quantum_Error_Correction/
 - 9-qubit Shor code single-Pauli recovery
 - 5-qubit perfect code single-Pauli recovery
 - 7-qubit Steane code single-Pauli recovery
+- 3x3 Bacon-Shor subsystem-code Pauli-frame recovery
 - Minimum-weight decoder for 1D repetition-code syndromes
 - Projective stabilizer measurements for +/-1 Pauli observables
 - Independent depolarizing-noise simulations
@@ -102,7 +103,12 @@ octave --no-gui examples/plot_logical_vs_p.m
 
 Short text examples:
 - `examples/minimal_bitflip_recovery.m`
+- `examples/minimal_phaseflip_recovery.m`
+- `examples/minimal_fivequbit_recovery.m`
 - `examples/minimal_steane_recovery.m`
+- `examples/minimal_shor_recovery.m`
+- `examples/minimal_bacon_shor_recovery.m`
+- `examples/minimal_repetition_decoder.m`
 - `examples/minimal_surface3_syndrome.m`
 
 Longer walkthrough:

@@ -8,7 +8,7 @@ This report uses intentionally small sample counts so it can run quickly in CI o
 
 | Field | Value |
 | --- | --- |
-| Generated at | `20260513T054051` |
+| Generated at | `20260514T010930` |
 | Octave version | `8.4.0` |
 | RNG seed | `7` |
 | Surface-3 cache version | `surface3-v1` |
@@ -22,6 +22,7 @@ This report uses intentionally small sample counts so it can run quickly in CI o
 | 5-qubit perfect | 5 | Distance 3 stabilizer code | Corrects every single-qubit X/Y/Z error |
 | Steane | 7 | Distance 3 CSS code | Corrects every single-qubit X/Y/Z error |
 | Shor | 9 | Distance 3 concatenated-style code | Corrects every single-qubit X/Y/Z error |
+| Bacon-Shor | 9 | Distance 3 subsystem Pauli-frame model | Corrects every single-qubit X/Y/Z error by logical residual parity |
 | Surface-3 prototype | 9 data qubits | X/Z/Pauli code-capacity model | Minimum-weight lookup corrects single X, Z, and Y errors |
 
 ## Depolarizing Noise Snapshot
@@ -52,6 +53,16 @@ Independent per-qubit depolarizing noise; logical failure is estimated by state 
 | 1 | 400 | 0.172 |
 | 3 | 400 | 0.058 |
 | 5 | 400 | 0.020 |
+
+## Bacon-Shor Pauli-Frame Snapshot
+
+3x3 Bacon-Shor subsystem-code Pauli-frame model under independent depolarizing noise.
+
+| p | Trials | Logical failure |
+| ---: | ---: | ---: |
+| 0.02 | 200 | 0.010 |
+| 0.08 | 200 | 0.075 |
+| 0.14 | 200 | 0.275 |
 
 ## Surface-3 Prototype
 
